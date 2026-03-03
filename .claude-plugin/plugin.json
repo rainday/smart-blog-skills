@@ -1,0 +1,19 @@
+{
+  "name": "smart-blog-skills",
+  "version": "1.1.0",
+  "description": "Anti-hallucination blog engine. 4 commands: write, analyze, rewrite, outline. Triple-layer verification, 100-point scoring, E-E-A-T + AI citation optimization. Traditional Chinese first.",
+  "author": {
+    "name": "rainday",
+    "url": "https://github.com/rainday"
+  },
+  "repository": "https://github.com/rainday/smart-blog-skills",
+  "license": "MIT",
+  "keywords": [
+    "blog",
+    "seo",
+    "writing",
+    "anti-hallucination",
+    "eeat",
+    "traditional-chinese"
+  ]
+}
