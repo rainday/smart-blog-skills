@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    {
+      "name": "smart-blog-skills",
+      "description": "Anti-hallucination blog engine with triple-layer verification",
+      "source": "./"
+    }
+  ]
+}
