@@ -1,0 +1,13 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Write",
+      "hooks": [
+        {
+          "type": "prompt",
+          "prompt": "If the file just written is a blog article (.md/.mdx with frontmatter), remind the user to run /smart-blog:analyze for quality scoring. Otherwise, do nothing."
+        }
+      ]
+    }
+  ]
+}

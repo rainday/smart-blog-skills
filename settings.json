@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:pexels.com)"
+    ]
+  }
+}
