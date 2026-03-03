@@ -1,4 +1,9 @@
 {
+  "name": "smart-blog-skills",
+  "owner": {
+    "name": "rainday",
+    "url": "https://github.com/rainday"
+  },
   "plugins": [
     {
       "name": "smart-blog-skills",
