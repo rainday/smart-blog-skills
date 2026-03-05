@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Migrate smart-blog from a loose skills architecture to a Claude Code plugin with namespaced commands, hooks, settings, and marketplace distribution.
+**Goal:** Migrate smart-blog-skills from a loose skills architecture to a Claude Code plugin with namespaced commands, hooks, settings, and marketplace distribution.
 
 **Architecture:** Restructure directories to match plugin conventions, merge brief into outline, add hooks.json/settings.json/plugin.json. Keep install scripts for non-Claude Code platforms.
 
@@ -18,7 +18,7 @@
 **Step 1: Create skills/blog/ and move contents**
 
 ```bash
-# From repo root: d:\行銷\pumpfly\smart-blog
+# From repo root: d:\行銷\pumpfly\smart-blog-skills
 mkdir -p skills/blog
 cp -r blog/SKILL.md skills/blog/SKILL.md
 cp -r blog/references skills/blog/references
@@ -50,21 +50,21 @@ git commit -m "refactor: move blog/ into skills/blog/ for plugin structure"
 
 ---
 
-## Task 2: Rename sub-skill directories — remove smart-blog- prefix
+## Task 2: Rename sub-skill directories — remove smart-blog-skills- prefix
 
 **Files:**
-- Move: `skills/smart-blog-write/` → `skills/write/`
-- Move: `skills/smart-blog-analyze/` → `skills/analyze/`
-- Move: `skills/smart-blog-rewrite/` → `skills/rewrite/`
-- Move: `skills/smart-blog-outline/` → `skills/outline/`
+- Move: `skills/smart-blog-skills-write/` → `skills/write/`
+- Move: `skills/smart-blog-skills-analyze/` → `skills/analyze/`
+- Move: `skills/smart-blog-skills-rewrite/` → `skills/rewrite/`
+- Move: `skills/smart-blog-skills-outline/` → `skills/outline/`
 
 **Step 1: Rename all four directories**
 
 ```bash
-mv skills/smart-blog-write skills/write
-mv skills/smart-blog-analyze skills/analyze
-mv skills/smart-blog-rewrite skills/rewrite
-mv skills/smart-blog-outline skills/outline
+mv skills/smart-blog-skills-write skills/write
+mv skills/smart-blog-skills-analyze skills/analyze
+mv skills/smart-blog-skills-rewrite skills/rewrite
+mv skills/smart-blog-skills-outline skills/outline
 ```
 
 **Step 2: Verify**
@@ -75,13 +75,13 @@ ls skills/
 
 Expected: `blog/  write/  analyze/  rewrite/  outline/`
 
-No `smart-blog-*` directories should remain.
+No `smart-blog-skills-*` directories should remain.
 
 **Step 3: Commit**
 
 ```bash
 git add skills/ && git add -u
-git commit -m "refactor: rename sub-skill dirs, drop smart-blog- prefix (plugin provides namespace)"
+git commit -m "refactor: rename sub-skill dirs, drop smart-blog-skills- prefix (plugin provides namespace)"
 ```
 
 ---
@@ -97,7 +97,7 @@ git commit -m "refactor: rename sub-skill dirs, drop smart-blog- prefix (plugin 
 Write `.claude-plugin/plugin.json`:
 ```json
 {
-  "name": "smart-blog",
+  "name": "smart-blog-skills",
   "version": "1.1.0",
   "description": "Anti-hallucination blog engine. 4 commands: write, analyze, rewrite, outline. Triple-layer verification, 100-point scoring, E-E-A-T + AI citation optimization. Traditional Chinese first.",
   "author": {
@@ -117,7 +117,7 @@ Write `.claude-plugin/marketplace.json`:
 {
   "plugins": [
     {
-      "name": "smart-blog",
+      "name": "smart-blog-skills",
       "description": "Anti-hallucination blog engine with triple-layer verification",
       "source": "./"
     }
@@ -151,7 +151,7 @@ Write `hooks/hooks.json`:
       "hooks": [
         {
           "type": "prompt",
-          "prompt": "If the file just written is a blog article (.md/.mdx with frontmatter), remind the user to run /smart-blog:analyze for quality scoring. Otherwise, do nothing."
+          "prompt": "If the file just written is a blog article (.md/.mdx with frontmatter), remind the user to run /smart-blog-skills:analyze for quality scoring. Otherwise, do nothing."
         }
       ]
     }
@@ -191,9 +191,9 @@ git commit -m "feat: add hooks (post-write quality reminder) and default WebFetc
 **Step 1: Update the SKILL.md**
 
 Changes needed:
-1. Update `name` from `blog` to `blog` (no change needed — plugin provides `smart-blog:` prefix)
+1. Update `name` from `blog` to `blog` (no change needed — plugin provides `smart-blog-skills:` prefix)
 2. Remove `brief` from the command table and routing section
-3. Update routing targets from `smart-blog-write` → `write`, `smart-blog-analyze` → `analyze`, etc.
+3. Update routing targets from `smart-blog-skills-write` → `write`, `smart-blog-skills-analyze` → `analyze`, etc.
 4. Update reference file paths from `blog/references/` → `references/` (now relative to skill dir) or keep as `skills/blog/references/` depending on plugin path resolution
 5. Remove `brief` / `簡報` / `策略` from routing rules
 
@@ -201,10 +201,10 @@ Replace the command table with:
 ```markdown
 | 指令 | 功能 |
 |------|------|
-| `/smart-blog:blog write <主題>` | 從零寫一篇新文章 |
-| `/smart-blog:blog analyze <檔案>` | 品質審計 + 100 分評分 |
-| `/smart-blog:blog rewrite <檔案>` | 優化改寫現有文章 |
-| `/smart-blog:blog outline <主題>` | 生成 SERP 導向大綱 + 關鍵字研究 + 競品分析 |
+| `/smart-blog-skills:blog write <主題>` | 從零寫一篇新文章 |
+| `/smart-blog-skills:blog analyze <檔案>` | 品質審計 + 100 分評分 |
+| `/smart-blog-skills:blog rewrite <檔案>` | 優化改寫現有文章 |
+| `/smart-blog-skills:blog outline <主題>` | 生成 SERP 導向大綱 + 關鍵字研究 + 競品分析 |
 ```
 
 Replace the routing section with:
@@ -253,7 +253,7 @@ git commit -m "refactor: update router — remove brief, update skill references
 **Step 1: Update skills/write/SKILL.md**
 
 Changes:
-1. `name: smart-blog-write` → `name: write`
+1. `name: smart-blog-skills-write` → `name: write`
 2. Path references: `blog/references/content-templates.md` → `skills/blog/references/content-templates.md`
 3. Path references: `blog/templates/<type>.md` → `skills/blog/templates/<type>.md`
 4. Path references: `blog/references/content-rules.md` → `skills/blog/references/content-rules.md`
@@ -262,15 +262,15 @@ Changes:
 **Step 2: Update skills/analyze/SKILL.md**
 
 Changes:
-1. `name: smart-blog-analyze` → `name: analyze`
+1. `name: smart-blog-skills-analyze` → `name: analyze`
 2. Path references: `blog/references/content-rules.md` → `skills/blog/references/content-rules.md`
 
 **Step 3: Update skills/rewrite/SKILL.md**
 
 Changes:
-1. `name: smart-blog-rewrite` → `name: rewrite`
+1. `name: smart-blog-skills-rewrite` → `name: rewrite`
 2. Path references: `blog/references/content-rules.md` → `skills/blog/references/content-rules.md`
-3. Agent reference: `smart-blog-analyze` → `analyze` (Phase 1 uses analyze logic)
+3. Agent reference: `smart-blog-skills-analyze` → `analyze` (Phase 1 uses analyze logic)
 
 **Step 4: Commit**
 
@@ -289,7 +289,7 @@ git commit -m "refactor: update sub-skill names and path references for plugin s
 **Step 1: Update skills/outline/SKILL.md**
 
 Changes:
-1. `name: smart-blog-outline` → `name: outline`
+1. `name: smart-blog-skills-outline` → `name: outline`
 2. Update description to include brief capabilities
 3. Add `--full` mode flag handling
 4. Add new steps for keyword research, competitor analysis, visual planning, internal linking
@@ -416,7 +416,7 @@ git commit -m "refactor: update agent path references for plugin directory struc
 
 Major changes:
 1. Add plugin installation as the primary method (above manual install)
-2. Update command examples from `/blog write` → `/smart-blog:write` (or `/smart-blog:blog write`)
+2. Update command examples from `/blog write` → `/smart-blog-skills:write` (or `/smart-blog-skills:blog write`)
 3. Update project structure diagram
 4. Remove brief from command table
 5. Update workflow recommendation (remove brief step)
@@ -430,7 +430,7 @@ New installation section:
 
 ```bash
 /plugin marketplace add rainday/smart-blog-skills
-/plugin install smart-blog
+/plugin install smart-blog-skills
 ```
 
 安裝完成後直接使用，不需要重啟。
@@ -446,22 +446,22 @@ Update command table:
 
 | 指令 | 功能 |
 |------|------|
-| `/smart-blog:write <主題>` | 從零寫一篇新文章 |
-| `/smart-blog:analyze <檔案>` | 品質審計 + 100 分評分 |
-| `/smart-blog:rewrite <檔案>` | 優化改寫現有文章 |
-| `/smart-blog:outline <主題>` | 生成 SERP 導向大綱 |
+| `/smart-blog-skills:write <主題>` | 從零寫一篇新文章 |
+| `/smart-blog-skills:analyze <檔案>` | 品質審計 + 100 分評分 |
+| `/smart-blog-skills:rewrite <檔案>` | 優化改寫現有文章 |
+| `/smart-blog-skills:outline <主題>` | 生成 SERP 導向大綱 |
 
-> `/smart-blog:outline <主題> --full` 可產出完整內容簡報（含關鍵字研究 + 競品分析）
+> `/smart-blog-skills:outline <主題> --full` 可產出完整內容簡報（含關鍵字研究 + 競品分析）
 ```
 
 Update workflow:
 ```markdown
 ### 建議工作流程
 
-1. /smart-blog:outline "主題" --full  ← 先產大綱 + 簡報
-2. /smart-blog:write "主題"            ← 開始寫文章
-3. /smart-blog:analyze ./file.md       ← 品質檢查 100 分評分
-4. /smart-blog:rewrite ./file.md       ← 分數不夠就改寫
+1. /smart-blog-skills:outline "主題" --full  ← 先產大綱 + 簡報
+2. /smart-blog-skills:write "主題"            ← 開始寫文章
+3. /smart-blog-skills:analyze ./file.md       ← 品質檢查 100 分評分
+4. /smart-blog-skills:rewrite ./file.md       ← 分數不夠就改寫
 ```
 
 Update project structure to match new layout.
@@ -484,7 +484,7 @@ git commit -m "docs: update README for plugin architecture and new command forma
 **Step 1: Update install.sh**
 
 Changes:
-1. For Claude Code (option 1): Update source paths from `blog/` → `skills/blog/`, `skills/smart-blog-*` → `skills/write`, `skills/analyze`, etc.
+1. For Claude Code (option 1): Update source paths from `blog/` → `skills/blog/`, `skills/smart-blog-skills-*` → `skills/write`, `skills/analyze`, etc.
 2. For Antigravity/Codex (options 2-3): Same path updates
 3. For Cursor/Cline/Kilo (options 4-6): Update reference paths from `blog/references/` → `skills/blog/references/`, `blog/templates/` → `skills/blog/templates/`
 4. Add note recommending plugin install for Claude Code users
@@ -528,7 +528,7 @@ uninstall.ps1
 docs/plans/
 ```
 
-No `blog/` at root. No `skills/smart-blog-*` directories.
+No `blog/` at root. No `skills/smart-blog-skills-*` directories.
 
 **Step 2: Test locally**
 
@@ -537,8 +537,8 @@ claude --plugin-dir .
 ```
 
 Then try:
-- `/smart-blog:blog` — should show router
-- `/smart-blog:write` — should show write skill
+- `/smart-blog-skills:blog` — should show router
+- `/smart-blog-skills:write` — should show write skill
 
 **Step 3: Final commit if any cleanup needed**
 
@@ -554,7 +554,7 @@ git commit -m "chore: final cleanup after plugin migration"
 | Task | Description | Commit |
 |------|-------------|--------|
 | 1 | Move blog/ → skills/blog/ | `refactor: move blog/ into skills/blog/` |
-| 2 | Rename smart-blog-* → short names | `refactor: rename sub-skill dirs` |
+| 2 | Rename smart-blog-skills-* → short names | `refactor: rename sub-skill dirs` |
 | 3 | Create plugin.json + marketplace.json | `feat: add plugin manifest` |
 | 4 | Create hooks.json + settings.json | `feat: add hooks and settings` |
 | 5 | Update router SKILL.md | `refactor: update router` |

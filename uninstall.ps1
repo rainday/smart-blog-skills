@@ -1,7 +1,7 @@
 #!/usr/bin/env pwsh
 $ErrorActionPreference = "Stop"
 
-Write-Host "`n  smart-blog 解除安裝`n"
+Write-Host "`n  smart-blog-skills 解除安裝`n"
 
 # 選擇解除安裝平台
 Write-Host "  選擇解除安裝平台："
@@ -47,21 +47,21 @@ switch ($choice) {
         $SkillDir = ""
         $AgentDir = ""
         $UninstallMode = "rules"
-        $RulesDir = Join-Path "." ".cursor" "rules" "smart-blog"
+        $RulesDir = Join-Path "." ".cursor" "rules" "smart-blog-skills"
     }
     "5" {
         $Platform = "Cline"
         $SkillDir = ""
         $AgentDir = ""
         $UninstallMode = "rules"
-        $RulesDir = Join-Path "." ".clinerules" "smart-blog"
+        $RulesDir = Join-Path "." ".clinerules" "smart-blog-skills"
     }
     "6" {
         $Platform = "Kilo Code"
         $SkillDir = ""
         $AgentDir = ""
         $UninstallMode = "rules"
-        $RulesDir = Join-Path "." ".kilocode" "rules" "smart-blog"
+        $RulesDir = Join-Path "." ".kilocode" "rules" "smart-blog-skills"
     }
     default {
         Write-Host "  ❌ 無效的選擇" -ForegroundColor Red
@@ -75,7 +75,7 @@ Write-Host ""
 if ($UninstallMode -eq "full") {
     # ── 完整移除（Claude Code / Antigravity / Codex CLI）──
 
-    foreach ($skill in @("smart-blog-write", "smart-blog-analyze", "smart-blog-rewrite", "smart-blog-outline", "smart-blog-brief")) {
+    foreach ($skill in @("smart-blog-skills-write", "smart-blog-skills-analyze", "smart-blog-skills-rewrite", "smart-blog-skills-outline", "smart-blog-skills-brief")) {
         $path = Join-Path $SkillDir $skill
         if (Test-Path $path) {
             Remove-Item -Recurse -Force $path
@@ -110,5 +110,5 @@ if ($UninstallMode -eq "full") {
     }
 }
 
-Write-Host "`n  ✅ smart-blog 已從 $Platform 移除。" -ForegroundColor Green
+Write-Host "`n  ✅ smart-blog-skills 已從 $Platform 移除。" -ForegroundColor Green
 Write-Host "  重啟後生效。`n" -ForegroundColor Yellow

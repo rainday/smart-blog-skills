@@ -30,10 +30,10 @@ allowed-tools:
 
 | 指令 | 功能 |
 |------|------|
-| `/smart-blog:blog write <主題>` | 從零寫一篇新文章 |
-| `/smart-blog:blog analyze <檔案>` | 品質審計 + 100 分評分 |
-| `/smart-blog:blog rewrite <檔案>` | 優化改寫現有文章 |
-| `/smart-blog:blog outline <主題>` | 生成 SERP 導向大綱 + 關鍵字研究 + 競品分析 |
+| `/smart-blog-skills:blog write <主題>` | 從零寫一篇新文章 |
+| `/smart-blog-skills:blog analyze <檔案>` | 品質審計 + 100 分評分 |
+| `/smart-blog-skills:blog rewrite <檔案>` | 優化改寫現有文章 |
+| `/smart-blog-skills:blog outline <主題>` | 生成 SERP 導向大綱 + 關鍵字研究 + 競品分析 |
 
 ## 指令路由
 

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo ""
-echo "  smart-blog 解除安裝"
+echo "  smart-blog-skills 解除安裝"
 echo ""
 
 # 選擇解除安裝平台
@@ -49,21 +49,21 @@ case "$choice" in
         SKILL_DIR=""
         AGENT_DIR=""
         UNINSTALL_MODE="rules"
-        RULES_DIR=".cursor/rules/smart-blog"
+        RULES_DIR=".cursor/rules/smart-blog-skills"
         ;;
     5)
         PLATFORM="Cline"
         SKILL_DIR=""
         AGENT_DIR=""
         UNINSTALL_MODE="rules"
-        RULES_DIR=".clinerules/smart-blog"
+        RULES_DIR=".clinerules/smart-blog-skills"
         ;;
     6)
         PLATFORM="Kilo Code"
         SKILL_DIR=""
         AGENT_DIR=""
         UNINSTALL_MODE="rules"
-        RULES_DIR=".kilocode/rules/smart-blog"
+        RULES_DIR=".kilocode/rules/smart-blog-skills"
         ;;
     *)
         echo "  ❌ 無效的選擇"
@@ -77,7 +77,7 @@ echo ""
 if [ "$UNINSTALL_MODE" = "full" ]; then
     # ── 完整移除（Claude Code / Antigravity / Codex CLI）──
 
-    for skill in smart-blog-write smart-blog-analyze smart-blog-rewrite smart-blog-outline smart-blog-brief; do
+    for skill in smart-blog-skills-write smart-blog-skills-analyze smart-blog-skills-rewrite smart-blog-skills-outline smart-blog-skills-brief; do
         if [ -d "${SKILL_DIR}/${skill}" ]; then
             rm -rf "${SKILL_DIR}/${skill}"
             echo "  - 移除 ${skill}"
@@ -110,5 +110,5 @@ else
 fi
 
 echo ""
-echo "  ✅ smart-blog 已從 ${PLATFORM} 移除。"
+echo "  ✅ smart-blog-skills 已從 ${PLATFORM} 移除。"
 echo "  重啟後生效。"

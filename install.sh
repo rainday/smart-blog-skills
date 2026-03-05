@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# smart-blog 安裝腳本
+# smart-blog-skills 安裝腳本
 # 一行安裝：curl -sL https://raw.githubusercontent.com/rainday/smart-blog-skills/main/install.sh | bash
 
 main() {
@@ -15,7 +15,7 @@ main() {
 
     echo ""
     echo "  ╔══════════════════════════════════════╗"
-    echo "  ║       smart-blog 安裝程式            ║"
+    echo "  ║       smart-blog-skills 安裝程式            ║"
     echo "  ║  防幻覺部落格引擎                    ║"
     echo "  ╚══════════════════════════════════════╝"
     echo ""
@@ -63,21 +63,21 @@ main() {
             PLATFORM="Cursor"
             SKILL_DIR=""
             AGENT_DIR=""
-            RULES_DIR=".cursor/rules/smart-blog"
+            RULES_DIR=".cursor/rules/smart-blog-skills"
             INSTALL_MODE="rules"
             ;;
         5)
             PLATFORM="Cline"
             SKILL_DIR=""
             AGENT_DIR=""
-            RULES_DIR=".clinerules/smart-blog"
+            RULES_DIR=".clinerules/smart-blog-skills"
             INSTALL_MODE="rules"
             ;;
         6)
             PLATFORM="Kilo Code"
             SKILL_DIR=""
             AGENT_DIR=""
-            RULES_DIR=".kilocode/rules/smart-blog"
+            RULES_DIR=".kilocode/rules/smart-blog-skills"
             INSTALL_MODE="rules"
             ;;
         *)
@@ -98,11 +98,11 @@ main() {
     if [ -f "${BASH_SOURCE[0]:-}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/skills/blog" ]; then
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     else
-        echo "→ 下載 smart-blog..."
+        echo "→ 下載 smart-blog-skills..."
         TEMP_DIR="$(mktemp -d)"
         trap 'rm -rf "${TEMP_DIR}"' EXIT
-        git clone --depth 1 https://github.com/rainday/smart-blog-skills.git "${TEMP_DIR}/smart-blog" 2>/dev/null
-        SCRIPT_DIR="${TEMP_DIR}/smart-blog"
+        git clone --depth 1 https://github.com/rainday/smart-blog-skills.git "${TEMP_DIR}/smart-blog-skills" 2>/dev/null
+        SCRIPT_DIR="${TEMP_DIR}/smart-blog-skills"
     fi
 
     if [ "$INSTALL_MODE" = "full" ]; then

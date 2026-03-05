@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# smart-blog Windows 安裝腳本
+# smart-blog-skills Windows 安裝腳本
 
 $ErrorActionPreference = "Stop"
 
@@ -11,7 +11,7 @@ function Main {
     Write-Color Cyan @"
 
   ╔══════════════════════════════════════╗
-  ║       smart-blog 安裝程式            ║
+  ║       smart-blog-skills 安裝程式            ║
   ║  防幻覺部落格引擎                    ║
   ╚══════════════════════════════════════╝
 
@@ -60,21 +60,21 @@ function Main {
             $Platform = "Cursor"
             $SkillDir = ""
             $AgentDir = ""
-            $RulesDir = Join-Path "." ".cursor" "rules" "smart-blog"
+            $RulesDir = Join-Path "." ".cursor" "rules" "smart-blog-skills"
             $InstallMode = "rules"
         }
         "5" {
             $Platform = "Cline"
             $SkillDir = ""
             $AgentDir = ""
-            $RulesDir = Join-Path "." ".clinerules" "smart-blog"
+            $RulesDir = Join-Path "." ".clinerules" "smart-blog-skills"
             $InstallMode = "rules"
         }
         "6" {
             $Platform = "Kilo Code"
             $SkillDir = ""
             $AgentDir = ""
-            $RulesDir = Join-Path "." ".kilocode" "rules" "smart-blog"
+            $RulesDir = Join-Path "." ".kilocode" "rules" "smart-blog-skills"
             $InstallMode = "rules"
         }
         default {

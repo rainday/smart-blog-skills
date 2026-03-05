@@ -1,6 +1,6 @@
 # Smart Blog 策略總覽
 
-> 這是整個 smart-blog skill 的唯一策略來源 (Single Source of Truth)。
+> 這是整個 smart-blog-skills skill 的唯一策略來源 (Single Source of Truth)。
 > 所有 reference 文件、模板、agent 規則都從本文件衍生。
 > 新策略先更新此文件 → 再同步到對應的 reference 和模板。
 
@@ -326,7 +326,7 @@ Allow: /
 
 ### 5.1 反幻覺三層驗證
 
-這是 smart-blog 的核心差異化設計。
+這是 smart-blog-skills 的核心差異化設計。
 
 **Layer 1 — 結構化研究輸出**
 
@@ -404,7 +404,7 @@ Allow: /
 | | - 修復 blog-writer：加入 Schema 輸出和觸發詞完整列表 | blog-writer |
 | | - 修復 blog-researcher：加入搜尋預算、中文搜尋、WebFetch fallback | blog-researcher |
 | | - 修復 blog/SKILL.md：加入 brief 路由 | blog/SKILL |
-| | - 修復 smart-blog-write：加入研究不足處理 | smart-blog-write |
+| | - 修復 smart-blog-skills-write：加入研究不足處理 | smart-blog-skills-write |
 | 2026-02-28 | v1.0 初版建立 | 全部 |
 
 ---
