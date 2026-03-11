@@ -4,8 +4,8 @@
 > 所有 reference 文件、模板、agent 規則都從本文件衍生。
 > 新策略先更新此文件 → 再同步到對應的 reference 和模板。
 
-**最後更新：2026-02-28**
-**版本：v1.0**
+**最後更新：2026-03-11**
+**版本：v1.2**
 
 ---
 
@@ -386,6 +386,9 @@ Allow: /
 
 | 日期 | 變更內容 | 影響範圍 |
 |------|---------|---------|
+| 2026-03-11 | v1.2 Hook 誤觸修復 | hooks |
+| | - PostToolUse hook 加入路徑排除規則，避免寫入 docs/、plans/、skills/ 等系統目錄時誤觸部落格提醒 | hooks.json |
+| | - 加入 frontmatter 欄位驗證（需含 title/description/date/author/tags 才視為部落格文章） | hooks.json |
 | 2026-02-28 | v1.1 品質審計修復 | 全部 |
 | | - 修復段落/句子長度不一致（統一為 60-120 字/15-25 字） | content-rules, blog-writer |
 | | - 補齊觸發詞列表（+intricate, meticulous, seamlessly, 短語） | content-rules, blog-writer, STRATEGY |
