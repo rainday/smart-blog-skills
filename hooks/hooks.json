@@ -5,8 +5,8 @@
         "matcher": "Write",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "Check if the file just written meets ALL of these conditions: (1) it is a .md or .mdx file, (2) it contains YAML frontmatter with blog-specific fields like title/description/date/author/tags, AND (3) the file path is NOT inside any of these directories: docs/, .claude/, memory/, plans/, skills/, agents/, hooks/, references/. If ALL conditions are met, remind the user to run /smart-blog-skills:analyze for quality scoring. Otherwise, do absolutely nothing — no output, no comment."
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/check-blog-post.js\""
           }
         ]
       }
