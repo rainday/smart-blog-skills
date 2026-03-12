@@ -48,7 +48,7 @@ allowed-tools:
 
 ### Phase 4：研究
 
-生成 `blog-researcher` agent（Task tool），提供：
+生成 `smart-blog-skills:blog-researcher` agent（Agent tool），提供：
 - 主題和關鍵字
 - 需要搜尋的統計數據數量（8-12 個）
 - 需要的圖片數量（封面 1 + 內文 3-5）
@@ -63,7 +63,7 @@ allowed-tools:
 
 ### Phase 5：寫作
 
-生成 `blog-writer` agent（Task tool），提供：
+生成 `smart-blog-skills:blog-writer` agent（Agent tool），提供：
 - 確認的大綱
 - 研究報告（含驗證狀態）
 - 選定的模板

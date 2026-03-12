@@ -37,7 +37,7 @@ allowed-tools:
 
 ### Phase 3：研究補充
 
-如果原文有以下問題，生成 `blog-researcher` agent 補充：
+如果原文有以下問題，生成 `smart-blog-skills:blog-researcher` agent（Agent tool）補充：
 - 統計數據過時（>12 個月）
 - 統計數據不足（<8 個）
 - 缺少圖片

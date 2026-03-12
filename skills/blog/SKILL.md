@@ -81,10 +81,12 @@ allowed-tools:
 
 ## Agent
 
-| Agent | 角色 |
-|-------|------|
-| `blog-researcher` | 搜尋 + 驗證。用 agent-browser 讀取網頁，標註 [V]/[S]/[F] |
-| `blog-writer` | 寫作 + 自檢。遵循模板和寫作規則，寫完後執行檢查清單 |
+呼叫 Agent tool 時必須使用完整名稱（含 plugin prefix）：
+
+| Agent type（呼叫時使用） | 角色 |
+|--------------------------|------|
+| `smart-blog-skills:blog-researcher` | 搜尋 + 驗證。用 WebFetch 讀取網頁，標註 [V]/[S]/[F] |
+| `smart-blog-skills:blog-writer` | 寫作 + 自檢。遵循模板和寫作規則，寫完後執行檢查清單 |
 
 ## 前置需求
 
