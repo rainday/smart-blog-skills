@@ -19,6 +19,14 @@ allowed-tools:
 
 ## 工作流程
 
+### Phase 0：檢查 Brief 文件
+
+1. 如果使用者提供了 slug（如 `/write software-development-contract`），檢查 `docs/smart-blog/[slug].brief.md` 是否存在
+2. 如果 brief 存在：
+   - 讀取文件，直接跳到 **Phase 4（研究）**
+   - 告知使用者：「找到 brief 文件，跳過大綱生成，直接進入研究與寫作」
+3. 如果 brief 不存在，繼續 Phase 1
+
 ### Phase 1：主題確認
 
 問使用者以下資訊（有預設值的可以跳過）：

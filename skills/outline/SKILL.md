@@ -6,6 +6,7 @@ description: >
   使用 --full 可產出完整內容簡報（含關鍵字研究、競品分析、視覺元素規劃）。
 allowed-tools:
   - Read
+  - Write
   - Bash
   - Grep
   - Glob
@@ -167,5 +168,50 @@ allowed-tools:
 - 建議連結密度：[N] 個（依目標字數）
 - 連結放置位置：引言、H2 段落、FAQ、結論
 
-呈現大綱給使用者確認。確認後可直接進入 `/smart-blog-skills:write` 流程。
+### Step 8：存檔
+
+將所有分析結果存成 brief 文件：
+
+**存放路徑：** `docs/smart-blog/[slug].brief.md`
+- slug 規則：主題轉小寫、空白換成 `-`、移除特殊字元
+- 範例：`軟體開發合約注意什麼` → `docs/smart-blog/software-development-contract.brief.md`
+- 繁體中文主題直接音譯或翻譯成英文 slug
+
+**文件格式：**
+
+```markdown
+---
+topic: [主題]
+keyword: [主要關鍵字]
+intent: [搜尋意圖]
+template: [模板名稱]
+word-count: [建議字數範圍]
+created: [YYYY-MM-DD]
+status: draft
+---
+
+## 大綱
+[Step 4 的完整大綱]
+
+## 內容缺口分析
+[Step 5 的報告]
+
+## E-E-A-T 規劃
+[Step 6 的規劃]
+
+## 關鍵字研究
+[Step 2b 的表格，--full 模式才有]
+
+## 競品分析
+[Step 4b 的表格，--full 模式才有]
+
+## 視覺與連結規劃
+[Step 7 的內容，--full 模式才有]
+```
+
+存檔完成後告知使用者路徑，並提示可執行 `/smart-blog-skills:write [slug]` 進入寫作流程。
+
+---
+
+呈現大綱給使用者確認。確認後存檔並提示進入 `/smart-blog-skills:write` 流程。
 `--full` 模式下會同時呈現關鍵字研究、競品分析和視覺規劃。
