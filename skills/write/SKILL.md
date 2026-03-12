@@ -95,10 +95,16 @@ allowed-tools:
 - ⚠️ [S] 搜尋摘要：N 筆
 - 📝 待補充：N 處 placeholder
 
-### 視覺元素
-- 封面圖：[來源]
-- 內文圖：[N] 張
-- 圖表標記：[N] 個
+### 圖片清單
+
+| 檔案名稱 | 放置位置 | 生成 Prompt |
+|---------|---------|------------|
+| [slug]-cover.webp | 封面 / OG Image (1200×630) | [prompt] |
+| [slug]-01-[desc].webp | 引言之後 | [prompt] |
+| [slug]-02-[desc].webp | H2: [標題] 之後 | [prompt] |
+
+- 如已有 brief 圖片規劃，直接沿用該表格
+- SVG 圖表：[N] 個（已嵌入文章）
 
 ### 文章結構
 - [N] 個 H2 段落（Answer-First 格式）

@@ -151,12 +151,30 @@ allowed-tools:
 - **原創性機會：** [可以做什麼原創研究或獨家數據]
 ```
 
-### Step 7：視覺與連結規劃（--full 模式）
+### Step 7：圖片規劃（預設模式）
 
-#### 視覺元素
-- 封面圖方向：[建議主題和風格]
-- 內文圖：每 200-400 字一張，共 [N] 張
-- 圖表規劃：[N] 個，類型建議
+根據文章大綱和 `visual-media.md` 的密度建議，為每張圖片產出：
+
+| 欄位 | 說明 |
+|------|------|
+| 檔案名稱 | `[slug]-[序號]-[描述].webp`，封面用 `[slug]-cover.webp` |
+| 放置位置 | 例如「封面」「引言之後」「H2: 合約類型 之後」 |
+| 生成 Prompt | 英文，適用 Midjourney / DALL-E / Flux，含風格、構圖、主題 |
+
+輸出格式：
+
+```markdown
+## 圖片規劃
+
+| 檔案名稱 | 放置位置 | 生成 Prompt |
+|---------|---------|------------|
+| [slug]-cover.webp | 封面 / OG Image (1200×630) | [prompt] |
+| [slug]-01-[desc].webp | 引言之後 | [prompt] |
+| [slug]-02-[desc].webp | H2: [標題] 之後 | [prompt] |
+| [slug]-03-[desc].webp | H2: [標題] 之後 | [prompt] |
+```
+
+### Step 7b：連結與統計規劃（--full 模式）
 
 #### 統計數據搜尋方向
 列出 8-12 個需要搜尋的統計方向：
@@ -199,14 +217,22 @@ status: draft
 ## E-E-A-T 規劃
 [Step 6 的規劃]
 
+## 圖片規劃
+
+| 檔案名稱 | 放置位置 | 生成 Prompt |
+|---------|---------|------------|
+| [slug]-cover.webp | 封面 / OG Image (1200×630) | [prompt] |
+| [slug]-01-[desc].webp | 引言之後 | [prompt] |
+| [slug]-02-[desc].webp | H2: [標題] 之後 | [prompt] |
+
 ## 關鍵字研究
 [Step 2b 的表格，--full 模式才有]
 
 ## 競品分析
 [Step 4b 的表格，--full 模式才有]
 
-## 視覺與連結規劃
-[Step 7 的內容，--full 模式才有]
+## 連結與統計規劃
+[Step 7b 的內容，--full 模式才有]
 ```
 
 存檔完成後告知使用者路徑，並提示可執行 `/smart-blog-skills:write [slug]` 進入寫作流程。
