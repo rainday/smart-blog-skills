@@ -81,6 +81,7 @@ argument-hint: "[write|analyze|rewrite|outline] [主題或檔案]"
 - `references/internal-linking.md` — 內部連結策略
 - `references/research-cache.md` — Research cache 規格和過期規則
 - `references/video-embeds.md` — YouTube 影片嵌入策略與 VideoObject Schema
+- `references/humanizer-patterns.md` — 29 個 AI 寫作模式偵測與修正（基於 Wikipedia AI Cleanup）
 
 ## Agent
 

@@ -113,6 +113,26 @@ game-changer, navigate the landscape
 
 ---
 
+## Humanizer Pass（寫完初稿後、自我檢查前執行）
+
+讀取 `skills/blog/references/humanizer-patterns.md`，對初稿執行二次審稿：
+
+1. **掃描 29 模式** — 逐條對照，標記偵測到的 AI 寫作模式
+2. **修正** — 替換偵測到的模式（用自然寫法取代）
+3. **注入個性** — 加入觀點、節奏變化、第一人稱、承認不確定性
+4. **反 AI 審稿** — 問自己：「這段文字哪裡一看就是 AI 寫的？」
+5. **二次修正** — 根據審稿結果再改一輪
+
+**重點模式（最容易觸發）：**
+- #1 誇大重要性（testament, pivotal, crucial）
+- #3 表面 -ing 分析（highlighting, reflecting, showcasing）
+- #7 AI 高頻詞（additionally, delve, landscape, tapestry）
+- #8 迴避 is/are（serves as, stands as）
+- #23 填充短語（In order to, It is important to note）
+- #28 預告式導言（Let's dive in, Here's what you need to know）
+
+---
+
 ## 自我檢查清單（寫完後執行）
 
 寫完文章後，逐項檢查：
@@ -141,6 +161,15 @@ game-changer, navigate the landscape
 - [ ] 有使用口語化表達
 - [ ] 有修辭問句（每 200-300 字至少 1 個）
 - [ ] 有第一人稱經驗描述
+
+### Humanizer 29 模式檢查
+- [ ] 無誇大重要性（#1）— 沒有 testament, pivotal, crucial 等裝飾
+- [ ] 無表面 -ing 分析（#3）— 沒有 highlighting, reflecting, showcasing
+- [ ] 無 AI 高頻詞（#7）— 沒有 additionally, delve, landscape
+- [ ] 無迴避 is/are（#8）— 沒有 serves as, stands as
+- [ ] 無套路式結尾（#25）— 沒有 future looks bright
+- [ ] 無預告式導言（#28）— 沒有 Let's dive in
+- [ ] 已執行反 AI 審稿二次修正
 
 ---
 

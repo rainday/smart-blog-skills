@@ -190,7 +190,43 @@ AI 系統（ChatGPT、Perplexity、Google AI Overview、Gemini）引用內容的
 
 ### 3.3 反 AI 偵測策略
 
-AI 生成的文章有明顯特徵，需主動規避：
+AI 生成的文章有明顯特徵，需主動規避。
+
+#### Humanizer 29 模式（v1.4 新增）
+
+基於 [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) 和 [humanizer v2.5.1](https://github.com/blader/humanizer)，涵蓋 5 大類 29 個 AI 寫作模式：
+
+| 類別 | 模式數 | 重點模式 |
+|------|--------|---------|
+| 內容模式 | 6 | 誇大重要性、廣告式語言、模糊歸因、套路式挑戰段 |
+| 語法模式 | 7 | AI 高頻詞、迴避 is/are、否定平行句、同義詞輪替 |
+| 風格模式 | 6 | 破折號濫用、粗體濫用、表情符號、標題全大寫 |
+| 溝通模式 | 3 | 聊天殘留、知識截止聲明、諂媚語氣 |
+| 填充模式 | 7 | 填充短語、過度避險、套路結尾、預告式導言 |
+
+完整 29 模式詳見 `references/humanizer-patterns.md`。
+
+#### Humanizer Pass 流程
+
+blog-writer 寫完初稿後執行：
+1. 掃描 29 模式
+2. 修正偵測到的模式
+3. 注入個性（觀點、節奏變化、第一人稱、承認不確定性）
+4. 反 AI 審稿：「這段文字哪裡一看就是 AI 寫的？」
+5. 二次修正
+
+#### 注入個性（不只移除壞模式）
+
+| 技巧 | 說明 |
+|------|------|
+| 有觀點 | 對事實做出反應，不只報導 |
+| 節奏變化 | 短句交替長句 |
+| 承認複雜 | 真人會有矛盾感受 |
+| 第一人稱 | 「我」不代表不專業 |
+| 容許凌亂 | 離題、括號旁白、半成形的想法 |
+| 具體感受 | 不要「令人擔憂」，要具體描述 |
+
+#### 量化指標（保留原有）
 
 **必須做：**
 - 句子長度要有「爆發性」變化（短句 8 字 + 長句 25 字交替）
@@ -219,6 +255,7 @@ AI 生成的文章有明顯特徵，需主動規避：
 - Burstiness（句長變異係數）：≥0.4 為自然，<0.3 被標記
 - 詞彙多樣性 TTR：≥0.4 為自然，<0.35 為 AI 風險
 - AI 觸發詞密度：每 1,000 字 ≤3 個（中文），≤5 個（英文）
+- Humanizer 模式數：0-3 正常，4-8 注意，9+ 高風險
 
 ### 3.4 品質閘門（發布前必須通過）
 
@@ -562,7 +599,7 @@ analyze 和 monitor compare 支援 `--pdf` flag，使用 `scripts/pdf_report.py`
 | 一、SEO 核心策略 | `seo-landscape.md` |
 | 二、AI 引用優化策略 | `seo-landscape.md`（共用） |
 | 三、內容品質標準 | `content-rules.md` |
-| 三、3.3 反 AI 偵測 | `content-rules.md`（含觸發詞列表） |
+| 三、3.3 反 AI 偵測 | `content-rules.md`（觸發詞列表）、`humanizer-patterns.md`（29 模式） |
 | 三、3.1 評分系統 | `content-rules.md`（含評分細則） |
 | 四、4.1 Schema | `schema-stack.md` |
 | 四、4.2 圖片 | `visual-media.md` |

@@ -68,11 +68,16 @@ description: >
 - 加入原創性標記
 - 加入內部連結 placeholder
 
-#### 反 AI 偵測修正
+#### 反 AI 偵測修正（Humanizer 29 模式）
+- 讀取 `skills/blog/references/humanizer-patterns.md`
+- 掃描 29 個 AI 寫作模式，逐一修正
+- 重點：誇大重要性(#1)、表面-ing分析(#3)、AI高頻詞(#7)、填充短語(#23)
 - 替換 AI 觸發詞
 - 增加句長變化
 - 加入修辭問句
 - 加入口語化表達
+- 注入個性：加入觀點、承認不確定性、第一人稱
+- 執行反 AI 審稿二次修正
 
 #### Frontmatter 更新
 - 更新 `lastUpdated` 為今天日期

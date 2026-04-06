@@ -94,7 +94,10 @@ description: >
 - 選定的模板
 - 偵測到的平台格式
 - 寫作規則來源：`skills/blog/references/content-rules.md`
+- Humanizer 模式來源：`skills/blog/references/humanizer-patterns.md`
 - YouTube 影片清單（如有）：影片 ID、標題、建議放置位置
+
+**重要：** blog-writer 在寫完初稿後會執行 Humanizer Pass（29 模式掃描 + 反 AI 審稿二次修正），確保輸出不像 AI 寫的。
 
 ### Phase 7：交付
 

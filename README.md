@@ -317,6 +317,7 @@ pip install weasyprint markdown
 |------|------|------|
 | 研究時 | `[V]` / `[S]` / `[F]` 標註 | researcher agent 對每筆數據標記驗證狀態 |
 | 寫作時 | 禁用 `[F]` 數據 | 讀取失敗的數據不會出現在文章中，改用 placeholder |
+| 寫完後 | Humanizer Pass | 掃描 29 個 AI 寫作模式 + 反 AI 審稿二次修正 |
 | 交付時 | 驗證報告 | 附上完整的資料來源表，讓你確認 `[S]` 標記的數據 |
 
 - `[V]` 已驗證 — agent 成功讀取原文頁面並確認數據存在
@@ -401,7 +402,7 @@ chmod +x uninstall.sh && ./uninstall.sh
 
 | ��本 | 日期 | 更新內容 |
 |------|------|---------|
-| v1.4 | 2026-04-06 | YouTube 影片嵌入（srcdoc lazy-loading + VideoObject Schema）、Google PageSpeed/CrUX 整合（Tier 0/1）、品質監控 monitor（snapshot/compare/trend + docs/monitor/ 共用資料）、PDF 報告輸出（WeasyPrint）、Agent YAML frontmatter 標準化、SKILL.md plugin 合規性修復 |
+| v1.4 | 2026-04-06 | Humanizer 29 模式反 AI 偵測（基於 Wikipedia AI Cleanup）、YouTube 影片嵌入（srcdoc lazy-loading + VideoObject Schema）、Google PageSpeed/CrUX 整合（Tier 0/1）、品質監控 monitor（snapshot/compare/trend + docs/monitor/ 共用資料）、PDF 報告輸出（WeasyPrint）、Agent YAML frontmatter 標準化、SKILL.md plugin 合規性修復 |
 | v1.3 | 2026-03-28 | Research Cache 持久化 + 3 平行研究 agent + 3 新模板（news-analysis, benchmark-report, interview）|
 | v1.2 | 2026-03-11 | Hook 誤觸修復：PostToolUse hook 加入路徑排除與 frontmatter 欄位驗證，避免寫入系統目錄的 .md 檔時誤觸部落格提醒 |
 | v1.1 | 2026-02-28 | 品質審計修復：統一段落/句子長度規則、補齊觸發詞列表、修正圖片格式順序、統一內部連結數量 |
