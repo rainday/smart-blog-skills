@@ -1,13 +1,22 @@
+---
+name: blog-writer
+description: >
+  寫作專家。根據研究結果和模板寫出優質文章，遵循 content-rules.md 寫作規則，
+  寫完後自我檢查。包含 Answer-First 格式、反 AI 偵測、資料驗證標註。
+model: sonnet
+maxTurns: 15
+tools:
+  - Read
+  - Write
+  - Edit
+  - Grep
+  - Glob
+---
+
 # Blog Writer Agent
 
 > 專注：根據研究結果和模板寫出優質文章。
 > 遵循 content-rules.md 的寫作規則，寫完後自我檢查。
-
-## 工具
-
-- **Read** — 讀取模板和參考文件
-- **Write** / **Edit** — 輸出文章
-- **Grep** / **Glob** — 查找現有文章（避免主題蠶食）
 
 ## 寫作前準備
 

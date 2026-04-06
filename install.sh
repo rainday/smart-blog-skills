@@ -121,13 +121,13 @@ main() {
         echo "→ 安裝主技能..."
         cp "${SCRIPT_DIR}/skills/blog/SKILL.md" "${SKILL_DIR}/blog/SKILL.md"
 
-        echo "→ 安裝參考文件（8 個）..."
+        echo "→ 安裝參考文件（10 個）..."
         cp "${SCRIPT_DIR}/skills/blog/references/"*.md "${SKILL_DIR}/blog/references/"
 
-        echo "→ 安裝內容模板（5 個）..."
+        echo "→ 安裝內容模板（8 個）..."
         cp "${SCRIPT_DIR}/skills/blog/templates/"*.md "${SKILL_DIR}/blog/templates/"
 
-        echo "→ 安裝子技能（4 個）..."
+        echo "→ 安裝子技能（6 個）..."
         for skill_dir in "${SCRIPT_DIR}/skills/"*/; do
             skill_name="$(basename "${skill_dir}")"
             if [ -f "${skill_dir}SKILL.md" ]; then
@@ -136,8 +136,15 @@ main() {
             fi
         done
 
+        # 安裝 scripts/
+        if [ -d "${SCRIPT_DIR}/scripts" ]; then
+            echo "→ 安裝腳本..."
+            mkdir -p "${SKILL_DIR}/../scripts"
+            cp "${SCRIPT_DIR}/scripts/"*.py "${SKILL_DIR}/../scripts/" 2>/dev/null || true
+        fi
+
         if [ -n "$AGENT_DIR" ]; then
-            echo "→ 安裝 Agent（2 個）..."
+            echo "→ 安裝 Agent（5 個）..."
             for agent_file in "${SCRIPT_DIR}/agents/"*.md; do
                 if [ -f "${agent_file}" ]; then
                     agent_name="$(basename "${agent_file}")"
@@ -172,10 +179,10 @@ main() {
         mkdir -p "${RULES_DIR}/references"
         mkdir -p "${RULES_DIR}/templates"
 
-        echo "→ 安裝參考文件（8 個）..."
+        echo "→ 安裝參考文件（10 個）..."
         cp "${SCRIPT_DIR}/skills/blog/references/"*.md "${RULES_DIR}/references/"
 
-        echo "→ 安裝內容模板（5 個）..."
+        echo "→ 安裝內容模板（8 個）..."
         cp "${SCRIPT_DIR}/skills/blog/templates/"*.md "${RULES_DIR}/templates/"
 
         echo "→ 安裝策略文件..."
@@ -191,17 +198,19 @@ main() {
 
     if [ "$INSTALL_MODE" = "full" ]; then
         echo "  已安裝："
-        echo "    主技能:    blog/（路由器 + 8 參考文件 + 5 模板）"
-        echo "    子技能:    4 個指令"
+        echo "    主技能:    blog/（路由器 + 10 參考文件 + 8 模板）"
+        echo "    子技能:    6 個指令"
         if [ -n "$AGENT_DIR" ]; then
-            echo "    Agent:     2 個（researcher + writer）"
+            echo "    Agent:     5 個（orchestrator + 3 researchers + writer）"
         fi
         echo ""
         echo "  可用指令："
-        echo "    /blog write <主題>     寫一篇新文章"
+        echo "    /blog write <主題>     寫一篇新文章（含 YouTube 嵌入）"
         echo "    /blog analyze <檔案>   分析文章品質（100 分）"
         echo "    /blog rewrite <檔案>   優化改寫文章"
         echo "    /blog outline <主題>   生成文章大綱"
+        echo "    /google pagespeed <URL> PageSpeed / CrUX 效能檢測"
+        echo "    /monitor snapshot <檔案> 品質監控與月度比較"
     else
         echo "  已安裝（知識庫模式）："
         echo "    參考文件:  8 個（寫作規則、SEO 策略、模板指南等）"

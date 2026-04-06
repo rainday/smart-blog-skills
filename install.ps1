@@ -111,13 +111,13 @@ function Main {
         Write-Color White "→ 安裝主技能..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "SKILL.md") (Join-Path $SkillDir "blog" "SKILL.md") -Force
 
-        Write-Color White "→ 安裝參考文件（8 個）..."
+        Write-Color White "→ 安裝參考文件（10 個）..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "references" "*.md") (Join-Path $SkillDir "blog" "references") -Force
 
-        Write-Color White "→ 安裝內容模板（5 個）..."
+        Write-Color White "→ 安裝內容模板（8 個）..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "templates" "*.md") (Join-Path $SkillDir "blog" "templates") -Force
 
-        Write-Color White "→ 安裝子技能（4 個）..."
+        Write-Color White "→ 安裝子技能（6 個）..."
         Get-ChildItem -Directory (Join-Path $ScriptDir "skills") | ForEach-Object {
             $skillName = $_.Name
             $src = Join-Path $_.FullName "SKILL.md"
@@ -128,8 +128,17 @@ function Main {
             }
         }
 
+        # 安裝 scripts/
+        $ScriptsDir = Join-Path $ScriptDir "scripts"
+        if (Test-Path $ScriptsDir) {
+            Write-Color White "→ 安裝腳本..."
+            $DestScripts = Join-Path (Split-Path $SkillDir) "scripts"
+            New-Item -ItemType Directory -Force -Path $DestScripts | Out-Null
+            Copy-Item (Join-Path $ScriptsDir "*.py") $DestScripts -Force -ErrorAction SilentlyContinue
+        }
+
         if ($AgentDir) {
-            Write-Color White "→ 安裝 Agent（2 個）..."
+            Write-Color White "→ 安裝 Agent（5 個）..."
             Get-ChildItem -File (Join-Path $ScriptDir "agents" "*.md") | ForEach-Object {
                 Copy-Item $_.FullName (Join-Path $AgentDir $_.Name) -Force
                 Write-Color Green "  + $($_.BaseName)"
@@ -162,10 +171,10 @@ function Main {
         New-Item -ItemType Directory -Force -Path (Join-Path $RulesDir "references") | Out-Null
         New-Item -ItemType Directory -Force -Path (Join-Path $RulesDir "templates") | Out-Null
 
-        Write-Color White "→ 安裝參考文件（8 個）..."
+        Write-Color White "→ 安裝參考文件（10 個）..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "references" "*.md") (Join-Path $RulesDir "references") -Force
 
-        Write-Color White "→ 安裝內容模板（5 個）..."
+        Write-Color White "→ 安裝內容模板（8 個）..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "templates" "*.md") (Join-Path $RulesDir "templates") -Force
 
         Write-Color White "→ 安裝策略文件..."
@@ -184,17 +193,19 @@ function Main {
 
     if ($InstallMode -eq "full") {
         Write-Color White "  已安裝："
-        Write-Color Green "    主技能:  blog/（路由器 + 8 參考文件 + 5 模板）"
-        Write-Color Green "    子技能:  4 個指令"
+        Write-Color Green "    主技能:  blog/（路由器 + 10 參考文件 + 8 模板）"
+        Write-Color Green "    子技能:  6 個指令"
         if ($AgentDir) {
-            Write-Color Green "    Agent:   2 個（researcher + writer）"
+            Write-Color Green "    Agent:   5 個（orchestrator + 3 researchers + writer）"
         }
         Write-Color White ""
         Write-Color White "  可用指令："
-        Write-Color Cyan  "    /blog write <主題>     寫一篇新文章"
+        Write-Color Cyan  "    /blog write <主題>     寫一篇新文章（含 YouTube 嵌入）"
         Write-Color Cyan  "    /blog analyze <檔案>   分析文章品質（100 分）"
         Write-Color Cyan  "    /blog rewrite <檔案>   優化改寫文章"
         Write-Color Cyan  "    /blog outline <主題>   生成文章大綱"
+        Write-Color Cyan  "    /google pagespeed <URL> PageSpeed / CrUX 效能檢測"
+        Write-Color Cyan  "    /monitor snapshot <檔案> 品質監控與月度比較"
     } else {
         Write-Color White "  已安裝（知識庫模式）："
         Write-Color Green "    參考文件:  8 個（寫作規則、SEO 策略、模板指南等）"

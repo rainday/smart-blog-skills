@@ -10,16 +10,6 @@ description: >
   "analyze blog", "rewrite blog", "blog strategy", "blog brief".
 user-invocable: true
 argument-hint: "[write|analyze|rewrite|outline] [主題或檔案]"
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - Glob
-  - WebFetch
-  - WebSearch
-  - Task
 ---
 
 # Smart Blog — 防幻覺部落格引擎
@@ -34,6 +24,8 @@ allowed-tools:
 | `/smart-blog-skills:blog analyze <檔案>` | 品質審計 + 100 分評分 |
 | `/smart-blog-skills:blog rewrite <檔案>` | 優化改寫現有文章 |
 | `/smart-blog-skills:blog outline <主題>` | 生成 SERP 導向大綱 + 關鍵字研究 + 競品分析 |
+| `/smart-blog-skills:google [pagespeed\|crux\|setup] <URL>` | Google PageSpeed / CrUX 效能檢測 |
+| `/smart-blog-skills:monitor [snapshot\|compare\|trend] <檔案>` | 品質監控與月度比較 |
 
 ## 指令路由
 
@@ -44,6 +36,15 @@ allowed-tools:
    - `analyze` / `分析` / `audit` → `analyze`
    - `rewrite` / `改寫` / `優化` / `update` → `rewrite`
    - `outline` / `大綱` / `簡報` / `brief` / `策略` → `outline`
+   - `google` / `pagespeed` / `crux` / `效能` → `google`
+   - `monitor` / `監控` / `追蹤` / `trend` / `snapshot` / `compare` → `monitor`
+
+## 通用 Flag
+
+| Flag | 說明 | 適用指令 |
+|------|------|---------|
+| `--force-research` | 忽略 research cache，強制重新研究 | write, rewrite, outline |
+| `--pdf` | 輸出 PDF 報告（需要 Python + WeasyPrint） | analyze, monitor compare |
 
 ## 平台自動偵測
 
@@ -78,6 +79,8 @@ allowed-tools:
 - `references/visual-media.md` — 圖片與圖表規範
 - `references/schema-stack.md` — JSON-LD Schema 範例
 - `references/internal-linking.md` — 內部連結策略
+- `references/research-cache.md` — Research cache 規格和過期規則
+- `references/video-embeds.md` — YouTube 影片嵌入策略與 VideoObject Schema
 
 ## Agent
 
@@ -85,8 +88,11 @@ allowed-tools:
 
 | Agent type（呼叫時使用） | 角色 |
 |--------------------------|------|
-| `smart-blog-skills:blog-researcher` | 搜尋 + 驗證。用 WebFetch 讀取網頁，標註 [V]/[S]/[F] |
-| `smart-blog-skills:blog-writer` | 寫作 + 自檢。遵循模板和寫作規則，寫完後執行檢查清單 |
+| `smart-blog-skills:blog-researcher` | 研究協調者。管理 cache + 派遣平行 sub-agents |
+| `smart-blog-skills:stats-researcher` | 搜尋 + 驗證統計數據（由 blog-researcher 派遣） |
+| `smart-blog-skills:image-researcher` | 搜尋圖片 + 圖表規劃（由 blog-researcher 派遣） |
+| `smart-blog-skills:competitor-researcher` | SERP 分析 + 競品結構（由 blog-researcher 派遣） |
+| `smart-blog-skills:blog-writer` | 寫作 + 自檢。遵循模板和寫作規則 |
 
 ## 前置需求
 

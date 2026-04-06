@@ -14,6 +14,7 @@
 | Person | 必要 | 作者 E-E-A-T |
 | FAQPage | 強烈建議 | FAQ 結構化（有利 AI 抓取） |
 | BreadcrumbList | 建議 | 網站導覽結構 |
+| VideoObject | 建議 | 嵌入影片結構化描述 |
 | ImageObject | 建議 | 圖片結構化描述 |
 
 ---
@@ -135,6 +136,31 @@
   ]
 }
 ```
+
+---
+
+## VideoObject Schema
+
+嵌入 YouTube 影片時產生（見 `video-embeds.md` 完整指南）：
+
+```json
+{
+  "@type": "VideoObject",
+  "name": "影片標題",
+  "description": "影片描述（50-100 字）",
+  "thumbnailUrl": "https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg",
+  "uploadDate": "2026-01-15",
+  "contentUrl": "https://www.youtube.com/watch?v=VIDEO_ID",
+  "embedUrl": "https://www.youtube.com/embed/VIDEO_ID",
+  "duration": "PT10M30S"
+}
+```
+
+### 重點欄位
+
+- `duration`：ISO 8601 格式（PT10M30S = 10 分 30 秒）
+- `thumbnailUrl`：使用 YouTube 預設縮圖 URL 格式
+- `embedUrl`：embed 版本 URL，不是 watch URL
 
 ---
 

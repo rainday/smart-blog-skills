@@ -3,16 +3,6 @@ name: write
 description: >
   從零寫一篇新的部落格文章。包含模板選擇、研究、大綱、寫作、品質檢查。
   內建反幻覺驗證，繁體中文優先。
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - Glob
-  - WebFetch
-  - WebSearch
-  - Task
 ---
 
 # Blog Write — 新文章生成
@@ -23,7 +13,7 @@ allowed-tools:
 
 1. 如果使用者提供了 slug（如 `/write software-development-contract`），檢查 `docs/smart-blog/[slug].brief.md` 是否存在
 2. 如果 brief 存在：
-   - 讀取文件，直接跳到 **Phase 4（研究）**
+   - 讀取文件，直接跳到 **Phase 5（研究）**
    - 告知使用者：「找到 brief 文件，跳過大綱生成，直接進入研究與寫作」
 3. 如果 brief 不存在，繼續 Phase 1
 
@@ -54,13 +44,30 @@ allowed-tools:
 2. 包含：H2/H3 標題、每段字數建議、圖片/圖表放置位置
 3. **呈現大綱給使用者確認**，等待同意後再進入下一步
 
-### Phase 4：研究
+### Phase 4：Research Cache 檢查
+
+1. 計算 slug（主題轉小寫、空白換 `-`、中文翻譯英文）
+2. 讀取 `skills/blog/references/research-cache.md` 了解 cache 規格
+3. 用 Glob 檢查 `docs/research/{slug}/meta.md` 是否存在
+4. 如果存在，讀取 frontmatter 判斷 cache 狀態：
+
+| 狀態 | 行為 |
+|------|------|
+| `fresh` | 告知使用者：「找到 [date] 的研究 cache（[N] 筆統計、[N] 張圖片），直接使用」→ 跳到 Phase 6（寫作） |
+| `partial-stale` | 告知使用者哪些部分過期，提供選項：(a) 只更新過期部分 (b) 完整重新研究 (c) 直接使用舊資料 |
+| `stale` | 告知使用者 cache 已過期 → 進入 Phase 5（研究） |
+
+5. 如果不存在或使用者指定 `--force-research` → 進入 Phase 5（研究）
+
+### Phase 5：研究
 
 生成 `smart-blog-skills:blog-researcher` agent（Agent tool），提供：
 - 主題和關鍵字
 - 需要搜尋的統計數據數量（8-12 個）
 - 需要的圖片數量（封面 1 + 內文 3-5）
 - 圖表規劃建議
+- slug（用於 research cache 儲存路徑）
+- **YouTube 影片搜尋**：搜尋 2-3 個相關影片（見 `references/video-embeds.md`）
 
 **反幻覺要求：** 研究報告必須包含每筆數據的 [V]/[S]/[F] 標註。
 
@@ -69,7 +76,17 @@ allowed-tools:
 2. 使用者提供補充數據
 3. 嘗試不同搜尋角度重新研究
 
-### Phase 5：寫作
+### Phase 5b：YouTube 影片發現
+
+1. 用 WebSearch 搜尋 `[主題] site:youtube.com`（最多 2 次搜尋）
+2. 讀取 `skills/blog/references/video-embeds.md` 的品質評分標準
+3. 選出 2-3 個相關影片（品質分 ≥60）
+4. 驗證影片 URL 可存取
+5. 記錄影片資訊（標題、頻道、VIDEO_ID、描述）
+
+**如果找不到合適影片：** 跳過嵌入，不影響文章品質。
+
+### Phase 6：寫作
 
 生成 `smart-blog-skills:blog-writer` agent（Agent tool），提供：
 - 確認的大綱
@@ -77,8 +94,9 @@ allowed-tools:
 - 選定的模板
 - 偵測到的平台格式
 - 寫作規則來源：`skills/blog/references/content-rules.md`
+- YouTube 影片清單（如有）：影片 ID、標題、建議放置位置
 
-### Phase 6：交付
+### Phase 7：交付
 
 輸出完成的文章 + 以下摘要：
 
@@ -105,6 +123,16 @@ allowed-tools:
 
 - 如已有 brief 圖片規劃，直接沿用該表格
 - SVG 圖表：[N] 個（已嵌入文章）
+
+### YouTube 影片
+
+| 影片標題 | 放置位置 | VIDEO_ID |
+|---------|---------|----------|
+| [標題] | H2: [段落] 之後 | [ID] |
+| [標題] | H2: [段落] 之後 | [ID] |
+
+- 嵌入格式：srcdoc lazy-loading（見 `references/video-embeds.md`）
+- VideoObject Schema 已加入文章末尾
 
 ### 文章結構
 - [N] 個 H2 段落（Answer-First 格式）

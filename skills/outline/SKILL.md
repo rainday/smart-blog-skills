@@ -4,14 +4,6 @@ description: >
   生成 SERP 導向的文章大綱。分析搜尋結果前 5 名的結構，
   找出內容缺口，產出包含字數建議的完整骨架。
   使用 --full 可產出完整內容簡報（含關鍵字研究、競品分析、視覺元素規劃）。
-allowed-tools:
-  - Read
-  - Write
-  - Bash
-  - Grep
-  - Glob
-  - WebFetch
-  - WebSearch
 ---
 
 # Blog Outline — 大綱生成
@@ -26,12 +18,24 @@ allowed-tools:
 
 ### 模式判斷
 
-- 預設模式：快速大綱（Step 1-6）
-- `--full` 模式：完整內容簡報（加入 Step 2b、Step 4b、Step 7）
+- 預設模式：快速大綱（Step 1-7）
+- `--full` 模式：完整內容簡報（加入 Step 3b、Step 5b、Step 8）
 
 如果使用者說「簡報」「brief」「完整」或加了 `--full`，進入完整模式。
 
-### Step 2：SERP 分析
+### Step 2：Research Cache 檢查
+
+1. 計算 slug
+2. 用 Glob 檢查 `docs/research/{slug}/competitors.md`
+3. 如果 cache 存在且未過期（查看 frontmatter `stale_after`）：
+   - 讀取 cache 內容，跳過 SERP 搜尋（Step 3）
+   - 直接使用 cache 的競品結構進入 Step 4（模板匹配）
+4. 如果 cache 過期或不存在 → 進入 Step 3（SERP 分析）
+5. `--force-research` flag → 忽略 cache，進入 Step 3
+
+**存檔更新：** outline 完成後（Step 9），將 SERP 分析和競品結構存入 `docs/research/{slug}/competitors.md`
+
+### Step 3：SERP 分析
 
 1. 用 WebSearch 搜尋主題關鍵字
 2. 分析搜尋結果前 5 名：
@@ -43,7 +47,7 @@ allowed-tools:
 3. 整理共同的段落主題
 4. 找出 **內容缺口**（競爭者沒涵蓋但讀者可能需要的）
 
-### Step 2b：關鍵字研究（--full 模式）
+### Step 3b：關鍵字研究（--full 模式）
 
 1. 用 WebSearch 搜尋關鍵字變體和長尾關鍵字
 2. 分析搜尋意圖（資訊型 / 交易型 / 導航型）
@@ -56,13 +60,13 @@ allowed-tools:
 | 長尾 | [關鍵字 2] | [意圖] |
 | 長尾 | [關鍵字 3] | [意圖] |
 
-### Step 3：模板匹配
+### Step 4：模板匹配
 
 1. 讀取 `skills/blog/references/content-templates.md`
 2. 根據搜尋意圖推薦模板
 3. 告知使用者推薦的模板
 
-### Step 4：生成大綱
+### Step 5：生成大綱
 
 ```markdown
 ## 大綱：[主題]
@@ -112,7 +116,7 @@ allowed-tools:
 - [內部連結方向]
 ```
 
-### Step 4b：競品分析表（--full 模式）
+### Step 5b：競品分析表（--full 模式）
 
 分析 SERP 前 3-5 名：
 
@@ -122,7 +126,7 @@ allowed-tools:
 | 2 | [標題] | [N] | [N] | [Y/N] | [Y/N] | [描述] |
 | ... | ... | ... | ... | ... | ... | ... |
 
-### Step 5：內容缺口報告
+### Step 6：內容缺口報告
 
 ```markdown
 ## 內容缺口分析
@@ -141,7 +145,7 @@ allowed-tools:
 [如何讓這篇文章與競爭者不同]
 ```
 
-### Step 6：E-E-A-T 規劃
+### Step 7：E-E-A-T 規劃
 
 ```markdown
 ## E-E-A-T 規劃
@@ -151,7 +155,7 @@ allowed-tools:
 - **原創性機會：** [可以做什麼原創研究或獨家數據]
 ```
 
-### Step 7：圖片規劃（預設模式）
+### Step 8：圖片規劃（預設模式）
 
 根據文章大綱和 `visual-media.md` 的密度建議，為每張圖片產出：
 
@@ -174,7 +178,7 @@ allowed-tools:
 | [slug]-03-[desc].webp | H2: [標題] 之後 | [prompt] |
 ```
 
-### Step 7b：連結與統計規劃（--full 模式）
+### Step 8b：連結與統計規劃（--full 模式）
 
 #### 統計數據搜尋方向
 列出 8-12 個需要搜尋的統計方向：
@@ -186,7 +190,7 @@ allowed-tools:
 - 建議連結密度：[N] 個（依目標字數）
 - 連結放置位置：引言、H2 段落、FAQ、結論
 
-### Step 8：存檔
+### Step 9：存檔
 
 將所有分析結果存成 brief 文件：
 
@@ -209,13 +213,13 @@ status: draft
 ---
 
 ## 大綱
-[Step 4 的完整大綱]
+[Step 5 的完整大綱]
 
 ## 內容缺口分析
-[Step 5 的報告]
+[Step 6 的報告]
 
 ## E-E-A-T 規劃
-[Step 6 的規劃]
+[Step 7 的規劃]
 
 ## 圖片規劃
 
@@ -226,14 +230,16 @@ status: draft
 | [slug]-02-[desc].webp | H2: [標題] 之後 | [prompt] |
 
 ## 關鍵字研究
-[Step 2b 的表格，--full 模式才有]
+[Step 3b 的表格，--full 模式才有]
 
 ## 競品分析
-[Step 4b 的表格，--full 模式才有]
+[Step 5b 的表格，--full 模式才有]
 
 ## 連結與統計規劃
-[Step 7b 的內容，--full 模式才有]
+[Step 8b 的內容，--full 模式才有]
 ```
+
+6. 如果有 SERP 分析資料，同時存入 `docs/research/{slug}/competitors.md`
 
 存檔完成後告知使用者路徑，並提示可執行 `/smart-blog-skills:write [slug]` 進入寫作流程。
 

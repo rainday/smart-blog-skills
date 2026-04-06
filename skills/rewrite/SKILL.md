@@ -3,16 +3,6 @@ name: rewrite
 description: >
   優化改寫現有部落格文章。先分析目前品質，再針對性改善。
   保留作者語氣，補充過時數據，修正結構問題。
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - Glob
-  - WebFetch
-  - WebSearch
-  - Task
 ---
 
 # Blog Rewrite — 文章優化改寫
@@ -35,13 +25,30 @@ allowed-tools:
 - 現有的內部/外部連結
 - 品牌相關的特定用語
 
+### Phase 2b：YouTube 影片審計
+
+1. 檢查原文是否已有 YouTube 嵌入
+2. 如果有：驗證影片 URL 是否仍可存取（用 WebFetch 測試）
+3. 如果無或影片已失效：在 Phase 3 研究時一併搜尋 2-3 個相關影片
+4. 讀取 `skills/blog/references/video-embeds.md` 的嵌入標準
+
 ### Phase 3：研究補充
 
-如果原文有以下問題，生成 `smart-blog-skills:blog-researcher` agent（Agent tool）補充：
+如果原文有以下問題，需要補充研究：
 - 統計數據過時（>12 個月）
 - 統計數據不足（<8 個）
 - 缺少圖片
 - 缺少圖表數據
+- 缺少 YouTube 影片嵌入（或現有影片已失效）
+
+**研究前先檢查 cache：**
+1. 計算 slug（從原文 frontmatter 的 title 或檔案名稱推導）
+2. 檢查 `docs/research/{slug}/meta.md` 是否存在
+3. 如果 cache 存在且 stats 未過期 → 直接使用 cache 資料，跳過 agent 呼叫
+4. 如果 cache 存在但 stats 已過期 → 生成 researcher agent，傳入 slug，只更新過期部分
+5. 如果 cache 不存在 → 生成 researcher agent，傳入 slug，完整研究
+
+生成 `smart-blog-skills:blog-researcher` agent（Agent tool）補充研究。
 
 **反幻覺規則同 write 流程。**
 
