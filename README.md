@@ -372,7 +372,7 @@ smart-blog-skills/
 ├── skills/
 │   ├── blog/                ← 主路由器
 │   │   ├── SKILL.md
-│   │   ├── references/      ← 10 個知識庫文件（含 video-embeds.md）
+│   │   ├── references/      ← 11 個知識庫文件（含 video-embeds.md）
 │   │   └── templates/       ← 8 個內容模板
 │   ├── write/               ← 寫文章（含 YouTube 嵌入）
 │   ├── analyze/             ← 品質分析（支援 PDF 輸出）

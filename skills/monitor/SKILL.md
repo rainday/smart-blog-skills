@@ -1,10 +1,10 @@
 ---
 name: monitor
 description: >
-  部落格品質監控與月度比較。追蹤文章分數變化，產出 delta 報告。
-  資料儲存在 docs/monitor/，可供其他 skill 共用。
+  Smart Blog 品質監控與月度比較。追蹤文章分數變化，產出 delta 報告。
+  資料儲存在 docs/monitor/，JSON 格式可供其他 skill 共用。
   Use when user says "monitor", "監控", "追蹤", "compare scores",
-  "monthly report", "月報", "品質趨勢", "delta", "progress".
+  "monthly report", "月報", "品質趨勢", "smart-blog monitor", "delta".
 user-invocable: true
 argument-hint: "[snapshot|compare|trend] [檔案或目錄]"
 ---

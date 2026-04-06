@@ -1,11 +1,11 @@
 ---
 name: google
 description: >
-  Google API 整合。支援 PageSpeed Insights、CrUX Core Web Vitals 查詢。
-  無 API key 時使用免費端點，有 API key 時解鎖完整功能。
+  Smart Blog Google API 整合。PageSpeed Insights + CrUX Core Web Vitals 查詢。
+  無 API key 時使用免費端點，有 key 時解鎖 CrUX 真實用戶數據。
   Config 儲存於 ~/.config/smart-blog-skills/。
   Use when user says "pagespeed", "core web vitals", "CrUX", "page speed",
-  "網頁速度", "效能檢測", "google api setup".
+  "網頁速度", "效能檢測", "smart-blog google", "google api setup".
 user-invocable: true
 argument-hint: "[pagespeed|crux|setup] <URL>"
 ---

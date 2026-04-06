@@ -1,13 +1,12 @@
 ---
 name: blog
 description: >
-  AI 防幻覺部落格引擎。4 個指令涵蓋完整寫作流程：寫、分析、改寫、大綱。
-  雙重優化 Google 排名（E-E-A-T、2025 年 12 月核心更新）和 AI 引用平台（ChatGPT、
-  Perplexity、AI Overview）。內建反幻覺三層驗證、100 分品質評分、5 個內容模板。
-  支援多平台自動偵測（Next.js、Hugo、Jekyll、Astro、WordPress、靜態 HTML）。
-  繁體中文優先。Use when user says "blog", "write blog", "寫文章", "部落格",
-  "blog post", "分析文章", "改寫", "大綱", "內容簡報", "blog outline",
-  "analyze blog", "rewrite blog", "blog strategy", "blog brief".
+  Smart Blog 防幻覺部落格引擎。6 個指令：寫、分析、改寫、大綱、效能檢測、品質監控。
+  雙重優化 Google 排名（E-E-A-T）和 AI 引用平台（ChatGPT、Perplexity、AI Overview）。
+  反幻覺三層驗證 + Humanizer 29 模式反 AI 審稿、100 分品質評分、8 個內容模板。
+  繁體中文優先。Use when user says "blog", "write blog", "smart-blog", "smart blog",
+  "寫文章", "部落格", "blog post", "分析文章", "改寫", "大綱", "內容簡報",
+  "blog outline", "analyze blog", "rewrite blog", "blog strategy", "blog brief".
 user-invocable: true
 argument-hint: "[write|analyze|rewrite|outline] [主題或檔案]"
 ---

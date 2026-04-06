@@ -1,8 +1,12 @@
 ---
 name: rewrite
 description: >
-  優化改寫現有部落格文章。先分析目前品質，再針對性改善。
-  保留作者語氣，補充過時數據，修正結構問題。
+  Smart Blog 改寫。優化改寫現有部落格文章，先分析品質再針對性改善。
+  保留作者語氣，補充過時數據，Humanizer 反 AI 修正，YouTube 影片補充。
+  Use when user says "rewrite blog", "改寫文章", "優化文章", "blog rewrite",
+  "smart-blog rewrite", "update blog".
+user-invocable: true
+argument-hint: "<檔案> [--update]"
 ---
 
 # Blog Rewrite — 文章優化改寫

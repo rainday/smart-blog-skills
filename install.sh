@@ -121,7 +121,7 @@ main() {
         echo "→ 安裝主技能..."
         cp "${SCRIPT_DIR}/skills/blog/SKILL.md" "${SKILL_DIR}/blog/SKILL.md"
 
-        echo "→ 安裝參考文件（10 個）..."
+        echo "→ 安裝參考文件（11 個）..."
         cp "${SCRIPT_DIR}/skills/blog/references/"*.md "${SKILL_DIR}/blog/references/"
 
         echo "→ 安裝內容模板（8 個）..."
@@ -179,7 +179,7 @@ main() {
         mkdir -p "${RULES_DIR}/references"
         mkdir -p "${RULES_DIR}/templates"
 
-        echo "→ 安裝參考文件（10 個）..."
+        echo "→ 安裝參考文件（11 個）..."
         cp "${SCRIPT_DIR}/skills/blog/references/"*.md "${RULES_DIR}/references/"
 
         echo "→ 安裝內容模板（8 個）..."
@@ -198,7 +198,7 @@ main() {
 
     if [ "$INSTALL_MODE" = "full" ]; then
         echo "  已安裝："
-        echo "    主技能:    blog/（路由器 + 10 參考文件 + 8 模板）"
+        echo "    主技能:    blog/（路由器 + 11 參考文件 + 8 模板）"
         echo "    子技能:    6 個指令"
         if [ -n "$AGENT_DIR" ]; then
             echo "    Agent:     5 個（orchestrator + 3 researchers + writer）"

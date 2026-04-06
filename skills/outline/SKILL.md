@@ -1,9 +1,12 @@
 ---
 name: outline
 description: >
-  生成 SERP 導向的文章大綱。分析搜尋結果前 5 名的結構，
-  找出內容缺口，產出包含字數建議的完整骨架。
-  使用 --full 可產出完整內容簡報（含關鍵字研究、競品分析、視覺元素規劃）。
+  Smart Blog 大綱。生成 SERP 導向的文章大綱，分析搜尋結果前 5 名結構，
+  找出內容缺口。--full 可產出完整內容簡報（含關鍵字研究、競品分析、圖片規劃）。
+  Use when user says "outline blog", "大綱", "內容簡報", "blog outline",
+  "smart-blog outline", "blog brief".
+user-invocable: true
+argument-hint: "<主題> [--full]"
 ---
 
 # Blog Outline — 大綱生成

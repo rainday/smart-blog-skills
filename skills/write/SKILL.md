@@ -1,8 +1,13 @@
 ---
 name: write
 description: >
-  從零寫一篇新的部落格文章。包含模板選擇、研究、大綱、寫作、品質檢查。
+  Smart Blog 寫文章。從零寫一篇新的部落格文章，包含模板選擇、研究、
+  YouTube 影片嵌入、Humanizer 反 AI 審稿、品質檢查。
   內建反幻覺驗證，繁體中文優先。
+  Use when user says "write blog", "寫文章", "寫部落格", "new blog post",
+  "smart-blog write", "blog write".
+user-invocable: true
+argument-hint: "<主題>"
 ---
 
 # Blog Write — 新文章生成

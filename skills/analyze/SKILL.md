@@ -1,8 +1,12 @@
 ---
 name: analyze
 description: >
-  分析部落格文章品質，5 大類 100 分評分。包含 AI 內容偵測、SEO 驗證、
-  E-E-A-T 評估。不需要 Python，完全由 Claude 執行分析。
+  Smart Blog 品質分析。5 大類 100 分評分，包含 Humanizer 29 模式 AI 偵測、
+  SEO 驗證、E-E-A-T 評估、PageSpeed 整合。支援 PDF 報告輸出。
+  Use when user says "analyze blog", "分析文章", "blog audit", "品質評分",
+  "smart-blog analyze", "blog analyze".
+user-invocable: true
+argument-hint: "<檔案或目錄> [--pdf]"
 ---
 
 # Blog Analyze — 文章品質分析

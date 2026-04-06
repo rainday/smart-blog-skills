@@ -111,7 +111,7 @@ function Main {
         Write-Color White "→ 安裝主技能..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "SKILL.md") (Join-Path $SkillDir "blog" "SKILL.md") -Force
 
-        Write-Color White "→ 安裝參考文件（10 個）..."
+        Write-Color White "→ 安裝參考文件（11 個）..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "references" "*.md") (Join-Path $SkillDir "blog" "references") -Force
 
         Write-Color White "→ 安裝內容模板（8 個）..."
@@ -171,7 +171,7 @@ function Main {
         New-Item -ItemType Directory -Force -Path (Join-Path $RulesDir "references") | Out-Null
         New-Item -ItemType Directory -Force -Path (Join-Path $RulesDir "templates") | Out-Null
 
-        Write-Color White "→ 安裝參考文件（10 個）..."
+        Write-Color White "→ 安裝參考文件（11 個）..."
         Copy-Item (Join-Path $ScriptDir "skills" "blog" "references" "*.md") (Join-Path $RulesDir "references") -Force
 
         Write-Color White "→ 安裝內容模板（8 個）..."
@@ -193,7 +193,7 @@ function Main {
 
     if ($InstallMode -eq "full") {
         Write-Color White "  已安裝："
-        Write-Color Green "    主技能:  blog/（路由器 + 10 參考文件 + 8 模板）"
+        Write-Color Green "    主技能:  blog/（路由器 + 11 參考文件 + 8 模板）"
         Write-Color Green "    子技能:  6 個指令"
         if ($AgentDir) {
             Write-Color Green "    Agent:   5 個（orchestrator + 3 researchers + writer）"
