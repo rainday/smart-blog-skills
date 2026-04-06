@@ -4,8 +4,8 @@
 > 所有 reference 文件、模板、agent 規則都從本文件衍生。
 > 新策略先更新此文件 → 再同步到對應的 reference 和模板。
 
-**最後更新：2026-03-11**
-**版本：v1.2**
+**最後更新：2026-04-06**
+**版本：v1.4**
 
 ---
 
@@ -248,6 +248,7 @@ AI 生成的文章有明顯特徵，需主動規避：
 | BlogPosting | 必要 | 文章基本資訊 |
 | Person | 必要 | 作者 E-E-A-T 訊號 |
 | FAQPage | 強烈建議 | FAQ 段落，有助 AI 引用（Google 已取消一般網站的 FAQ rich results，但 Schema 仍有利於 AI 抓取） |
+| VideoObject | 建議 | 嵌入 YouTube 影片結構化描述（v1.4 新增） |
 | BreadcrumbList | 建議 | 網站導覽結構 |
 | ImageObject | 建議 | 圖片結構化描述 |
 
@@ -380,12 +381,154 @@ Allow: /
    - 每筆必須標註 [V]/[S]/[F]
    - 未驗證的加上 placeholder
 
+### 5.4 Research Cache（持久化研究儲存）
+
+研究結果儲存在 `docs/research/{slug}/` 目錄，包含：
+
+| 檔案 | 內容 | 保鮮期 |
+|------|------|--------|
+| `meta.md` | 研究元資料（日期、計數、過期設定） | — |
+| `stats.md` | 統計數據 + [V]/[S]/[F] 驗證狀態 | 3 個月 |
+| `competitors.md` | SERP 競品分析 + 內容缺口 | 1 個月 |
+| `images.md` | 圖片資源 + 圖表規劃 | 12 個月 |
+
+**Cache 狀態：**
+- `fresh` — 所有資料未過期，直接使用
+- `partial-stale` — 部分過期，只重新研究過期部分
+- `stale` — 全部過期，完整重新研究
+
+**使用者可用 `--force-research` 忽略 cache 強制重新研究。**
+
+詳細規格見 `references/research-cache.md`。
+
+### 5.5 平行研究架構
+
+blog-researcher agent 改為 orchestrator，管理 3 個平行 sub-agent：
+
+| Agent | 職責 | 搜尋預算 |
+|-------|------|---------|
+| `stats-researcher` | 統計數據搜尋 + 驗證 | 8 WebSearch + 12 URL |
+| `image-researcher` | 圖片搜尋 + 圖表規劃 | 4 WebSearch + 6 URL |
+| `competitor-researcher` | SERP 分析 + 競品結構 | 3 WebSearch + 5 URL |
+
+**執行流程：**
+1. Orchestrator 檢查 cache 狀態
+2. 根據過期狀態，**平行派遣**需要的 sub-agent（同時執行）
+3. 收集結果，合併為統一報告
+4. 儲存到 `docs/research/{slug}/`
+
+**Agent frontmatter 標準（v1.4）：**
+所有 agent 定義使用 YAML frontmatter 明確指定 `name`、`description`、`model`、`maxTurns`、`tools`。
+- orchestrator（blog-researcher）：sonnet, 20 turns
+- writer（blog-writer）：sonnet, 15 turns
+- sub-agent（stats/competitor）：sonnet, 15-20 turns
+- sub-agent（image）：haiku, 15 turns
+
+---
+
+## 5b、YouTube 影片嵌入策略（v1.4 新增）
+
+### 嵌入規則
+
+- 每篇文章嵌入 **2-3 個**相關 YouTube 影片
+- 影片之間至少間隔 **500 字**
+- 使用 **srcdoc lazy-loading** 模式（~5KB vs 直接 iframe ~500KB）
+- 每個嵌入必須包含 `<noscript>` 標籤（AI 爬蟲不��行 JS）
+
+### 品質評分（0-100）
+
+| 維度 | 權重 |
+|------|------|
+| 相關性 | 40% |
+| 觀看數 | 20% |
+| 新鮮度 | 20% |
+| 頻道權威 | 10% |
+| 互動率 | 10% |
+
+最低門檻 60 分。找不到合適影片則跳過，不影響文章品質。
+
+### VideoObject Schema
+
+每個嵌入的影片產生 VideoObject Schema，加入 `@graph` 陣列。
+詳見 `references/video-embeds.md` 和 `references/schema-stack.md`。
+
+---
+
+## 5c、Google API 效能檢測（v1.4 新增）
+
+### Tier 系統
+
+| Tier | 需要什麼 | 解鎖功能 |
+|------|---------|---------|
+| 0（免費） | 無需設定 | PageSpeed Insights（共用配額，25 次/天） |
+| 1（API Key） | Google Cloud Console 免費 API Key | PageSpeed（專屬 400 次/天）+ CrUX（150 次/天） |
+
+### Config 與安全
+
+- 儲存位置：`~/.config/smart-blog-skills/config.json`
+- 不在專案目錄內，不會被 git commit
+- 檔案權限：`chmod 600`（Unix）
+- 環境變數備援：`SMART_BLOG_GOOGLE_API_KEY`
+- 建議在 Google Cloud Console 設定 API Key 的 HTTP referrer 或 IP 限制
+
+### 與 analyze 整合
+
+文章 frontmatter 含 `url` 或 `canonical` 時，analyze 自動呼叫 PageSpeed API，
+將結果納入「技術元素」類別（15 分）的評分。無 config 時跳過，不影響其他評分。
+
+---
+
+## 5d、品質監控與月度比較（v1.4 新增）
+
+### 資料結構
+
+```
+docs/monitor/
+├── snapshots/{YYYY-MM-DD}/{slug}.json   ← 每篇文章的評分 JSON
+├── reports/{YYYY-MM-DD}-monthly.md      ← 月度 delta 報告
+└── index.json                           ← 所有快照索引
+```
+
+### 功能
+
+| 指令 | 功能 |
+|------|------|
+| `snapshot` | 對文章/目錄執行 analyze，存為 JSON 快照 |
+| `compare` | 比較兩次快照，產出 delta 報告（含進步最大/退步最多 Top 5） |
+| `trend` | 顯示歷史趨勢表 |
+
+### 共用協議
+
+- `docs/monitor/` 使用 JSON 格式，可被其他 skill 讀取
+- 其他 skill 寫入用 `docs/monitor/external/` 子���錄
+- analyze 完成後自動同步快照（如 `docs/monitor/` 存在）
+
+### PDF 報告
+
+analyze 和 monitor compare 支援 `--pdf` flag，使用 `scripts/pdf_report.py`（WeasyPrint + Markdown → A4 PDF）。
+未安裝 Python/WeasyPrint 時優雅降級為 Markdown 輸出。
+
 ---
 
 ## 六、變更日誌
 
 | 日期 | 變更內容 | 影響範圍 |
 |------|---------|---------|
+| 2026-04-06 | v1.4 YouTube 嵌入 + Google API + Monitor + PDF + Plugin 合規 | 全部 |
+| | - YouTube 影片嵌入：srcdoc lazy-loading、VideoObject Schema、write/rewrite 整合 | video-embeds, schema-stack, write, rewrite |
+| | - Google API 效能檢測：PageSpeed/CrUX、Tier 0/1、config 在 ~/.config/smart-blog-skills/ | google/SKILL, analyze |
+| | - 品質監控 monitor：snapshot/compare/trend、docs/monitor/ 共用 JSON 格式 | monitor/SKILL, analyze |
+| | - PDF 報告：scripts/pdf_report.py (WeasyPrint)、--pdf flag | scripts/, analyze |
+| | - Agent YAML frontmatter 標準化：5 個 agent 全部加入 name/description/model/maxTurns/tools | agents/ |
+| | - SKILL.md 移除非標準 allowed-tools 欄位（plugin 合規性修復） | 所有 SKILL.md |
+| | - plugin.json 加入 homepage、版本升級 1.4.0 | plugin.json |
+| | - install 腳本更新：正確計數（10 refs, 8 templates, 6 skills, 5 agents） | install.sh, install.ps1 |
+| 2026-03-28 | v1.3 Research Cache + 平行研究 + 新模板 | 全部 |
+| | - 新增 research cache 持久化（`docs/research/{slug}/`），支援 3/1/12 個月過期規則 | research-cache, blog-researcher |
+| | - blog-researcher 改為 orchestrator，新增 stats/image/competitor 三個平行 sub-agent | agents/ |
+| | - write/rewrite/outline 流程整合 cache 檢查 + `--force-research` flag | skills/ |
+| | - seo-landscape.md 加入 `last_updated`/`stale_after` frontmatter | seo-landscape |
+| | - 新增 3 個模板：news-analysis、benchmark-report、interview（共 8 個） | templates/, content-templates |
 | 2026-03-11 | v1.2 Hook 誤觸修復 | hooks |
 | | - PostToolUse hook 加入路徑排除規則，避免寫入 docs/、plans/、skills/ 等系統目錄時誤觸部落格提醒 | hooks.json |
 | | - 加入 frontmatter 欄位驗證（需含 title/description/date/author/tags 才視為部落格文章） | hooks.json |
@@ -426,6 +569,9 @@ Allow: /
 | 四、4.3 平台規則 | `platform-guides.md` |
 | 四、4.4 AI 爬蟲 | `platform-guides.md`（含爬蟲設定） |
 | 五、研究與驗證 | 直接嵌入 `agents/blog-researcher.md` |
+| 5b、YouTube 嵌入 | `video-embeds.md`、`schema-stack.md`（VideoObject） |
+| 5c、Google API | `google/SKILL.md` |
+| 5d、品質監控 | `monitor/SKILL.md` |
 | E-E-A-T（1.2 節） | `eeat-signals.md` |
 | 連結策略 | `internal-linking.md` |
 | 模板相關 | `content-templates.md` |
