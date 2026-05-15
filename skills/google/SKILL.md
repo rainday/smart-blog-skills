@@ -6,7 +6,7 @@ description: >
   Config 儲存於 ~/.config/smart-blog-skills/。
   Use when user says "pagespeed", "core web vitals", "CrUX", "page speed",
   "網頁速度", "效能檢測", "smart-blog google", "google api setup".
-user-invocable: true
+user-invokable: true
 argument-hint: "[pagespeed|crux|setup] <URL>"
 ---
 

@@ -5,7 +5,7 @@ description: >
   保留作者語氣，補充過時數據，Humanizer 反 AI 修正，YouTube 影片補充。
   Use when user says "rewrite blog", "改寫文章", "優化文章", "blog rewrite",
   "smart-blog rewrite", "update blog".
-user-invocable: true
+user-invokable: true
 argument-hint: "<檔案> [--update]"
 ---
 

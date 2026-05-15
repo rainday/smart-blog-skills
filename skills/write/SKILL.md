@@ -6,7 +6,7 @@ description: >
   內建反幻覺驗證，繁體中文優先。
   Use when user says "write blog", "寫文章", "寫部落格", "new blog post",
   "smart-blog write", "blog write".
-user-invocable: true
+user-invokable: true
 argument-hint: "<主題>"
 ---
 

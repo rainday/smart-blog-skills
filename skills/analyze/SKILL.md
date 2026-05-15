@@ -5,7 +5,7 @@ description: >
   SEO 驗證、E-E-A-T 評估、PageSpeed 整合。支援 PDF 報告輸出。
   Use when user says "analyze blog", "分析文章", "blog audit", "品質評分",
   "smart-blog analyze", "blog analyze".
-user-invocable: true
+user-invokable: true
 argument-hint: "<檔案或目錄> [--pdf]"
 ---
 

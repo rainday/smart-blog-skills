@@ -1,3 +1,10 @@
+---
+last_updated: 2026-03-28
+stale_after: 2026-09-28
+update_cycle: 6 個月
+note: 此檔案的數據來自手動策展，更新週期為 6 個月。如數據超過 stale_after 日期，agent 應提醒使用者需要更新。
+---
+
 # SEO 與 AI 引用優化指南
 
 > 衍生自 STRATEGY.md 第一、二章。操作層級的執行參考。

@@ -5,7 +5,7 @@ description: >
   找出內容缺口。--full 可產出完整內容簡報（含關鍵字研究、競品分析、圖片規劃）。
   Use when user says "outline blog", "大綱", "內容簡報", "blog outline",
   "smart-blog outline", "blog brief".
-user-invocable: true
+user-invokable: true
 argument-hint: "<主題> [--full]"
 ---
 

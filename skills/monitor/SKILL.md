@@ -5,7 +5,7 @@ description: >
   資料儲存在 docs/monitor/，JSON 格式可供其他 skill 共用。
   Use when user says "monitor", "監控", "追蹤", "compare scores",
   "monthly report", "月報", "品質趨勢", "smart-blog monitor", "delta".
-user-invocable: true
+user-invokable: true
 argument-hint: "[snapshot|compare|trend] [檔案或目錄]"
 ---
 
