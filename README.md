@@ -1,6 +1,6 @@
 # smart-blog-skills
 
-**v1.5** · 2026-05-15
+**v1.6** · 2026-05-30
 
 用 Claude 寫部落格，不怕 AI 亂掰數據。
 
@@ -20,19 +20,14 @@
 
 安裝完成後直接使用，不需要重啟。
 
-### 手動安裝（Antigravity / Codex CLI / 其他平台）
+### 其他平台（Antigravity / Codex CLI / 手動）
 
-**macOS / Linux**
+複製 `skills/` 到平台的技能目錄，`agents/` 到對應的代理目錄，無需額外安裝步驟。
 
-```bash
-git clone https://github.com/rainday/smart-blog-skills.git && cd smart-blog-skills && chmod +x install.sh && ./install.sh
-```
-
-**Windows (PowerShell)**
-
-```powershell
-git clone https://github.com/rainday/smart-blog-skills.git; cd smart-blog-skills; .\install.ps1
-```
+| 平台 | 技能目錄 | 代理目錄 |
+|------|---------|---------|
+| Antigravity | `.agent/skills/` | `.agent/agents/` |
+| Codex CLI | `.agents/skills/` | — |
 
 ### 選裝
 
@@ -389,19 +384,13 @@ smart-blog-skills/
 ├── scripts/
 │   └── pdf_report.py        ← Markdown → PDF（WeasyPrint）
 ├── hooks/                   ← 自動化 hook
-├── settings.json
-├── install.sh / install.ps1
-└── uninstall.sh / uninstall.ps1
+└── settings.json
 ```
 
 ## 解除安裝
 
-```bash
-# macOS / Linux
-chmod +x uninstall.sh && ./uninstall.sh
-
-# Windows
-.\uninstall.ps1
+```
+/plugin uninstall smart-blog-skills
 ```
 
 ---
@@ -410,6 +399,7 @@ chmod +x uninstall.sh && ./uninstall.sh
 
 | 版本 | 日期 | 更新內容 |
 |------|------|---------|
+| v1.6 | 2026-05-30 | 移除 install/uninstall 腳本（改以 `/plugin install` 為主）；整合 Google AI 搜尋優化官方指引到 STRATEGY.md |
 | v1.5 | 2026-05-15 | 新增 27 個子技能：llmstxt、brand-mentions、drift、crawlers、customer-research、backlinks、persona、repurpose、schema、seo-check、taxonomy、translate、localize、multilingual、locale-audit、audit、strategy、cluster、brief、calendar、factcheck、flow、notebooklm、google、monitor、image、audio。新增 3 個 agent：blog-reviewer、blog-seo、blog-translator。修正全部 user-invokable 拼字。更新 plugin.json 和 README。 |
 | v1.4 | 2026-04-06 | Humanizer 29 模式反 AI 審稿、YouTube 影片嵌入、Google PageSpeed/CrUX 整合、品質監控 monitor、PDF 報告輸出 |
 | v1.3 | 2026-03-28 | Research Cache 持久化 + 3 平行研究 agent + 3 新模板 |

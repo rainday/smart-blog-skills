@@ -154,8 +154,3 @@ argument-hint: "[write|analyze|rewrite|outline|brief|calendar|...] [主題或檔
 | `smart-blog-skills:competitor-researcher` | SERP 分析 + 競品結構（由 blog-researcher 派遣） |
 | `smart-blog-skills:blog-writer` | 寫作 + 自檢。遵循模板和寫作規則 |
 
-## 前置需求
-
-- **agent-browser**（建議）：`npm install -g agent-browser`
-  讓研究 agent 可以真正讀取網頁內容，大幅降低幻覺風險。
-  未安裝時退回到 WebFetch（幻覺風險較高）。

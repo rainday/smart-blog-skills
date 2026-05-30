@@ -4,8 +4,8 @@
 > 所有 reference 文件、模板、agent 規則都從本文件衍生。
 > 新策略先更新此文件 → 再同步到對應的 reference 和模板。
 
-**最後更新：2026-04-06**
-**版本：v1.4**
+**最後更新：2026-05-30**
+**版本：v1.5**
 
 ---
 
@@ -25,6 +25,28 @@
 - AI Overviews 出現時，自然搜尋 CTR 下降 61%（Seer Interactive, 2025）
 - 有 AI Overview 的查詢，前 3 名以下的點擊率幾乎歸零
 - 長尾查詢（5+ 字）中 AI Overview 覆蓋率最高
+
+### 1.1b Google AI 搜尋優化官方指引（2025-2026）
+
+> 來源：developers.google.com/search/docs/fundamentals/ai-optimization-guide
+
+**官方確認有效：**
+- 傳統 SEO 最佳實踐 = AI Overviews 最佳實踐（相同核心排名系統）
+- E-E-A-T 和以使用者為中心的內容是核心
+- Structured data 建議使用（但**非 AI Overviews 必要條件**）
+
+**官方明確不建議：**
+
+| 策略 | 官方立場 |
+|------|---------|
+| 建立 llms.txt 或 AI 專用標記/檔案 | ❌ 不影響 Google 搜尋/AIO |
+| 將內容切片/碎片化給 AI | ❌ 不建議 |
+| 專門為 AI 系統改寫內容 | ❌ 不建議 |
+| 追求人工品牌提及 | ❌ 不建議 |
+| 關鍵字變體堆砌 | ❌ 不建議 |
+
+**新興關注點（監控中）：**
+- Browser Agents（AI 瀏覽器代理）和 UCP（Universal Communication Protocol）
 
 ### 1.2 E-E-A-T 要求
 
@@ -358,6 +380,10 @@ Allow: /
 - 幫助 AI 系統更準確地理解和引用網站內容
 - 詳見 https://llmstxt.org/
 
+> ⚠️ **Google 官方立場：** Google 不建議建立 llms.txt，對 Google 搜尋和 AI Overviews **無效**。
+> llms.txt 的受益對象是其他 AI 系統（Perplexity、ChatGPT Agent、Claude Agent 對話模式）。
+> **優先順序：** SEO 基礎 → Schema → E-E-A-T → llms.txt（最低優先）。
+
 ---
 
 ## 五、研究與驗證策略
@@ -551,6 +577,10 @@ analyze 和 monitor compare 支援 `--pdf` flag，使用 `scripts/pdf_report.py`
 
 | 日期 | 變更內容 | 影響範圍 |
 |------|---------|---------|
+| 2026-05-30 | v1.5 整合 Google AI 搜尋優化官方指引；澄清 llms.txt Google 立場；移除 install/uninstall 腳本 | STRATEGY, README, SKILL.md |
+| | - §1.1b 新增 Google AI Optimization Guide 官方立場（確認有效策略 + 明確不建議列表）| STRATEGY |
+| | - §4.4 llms.txt 加入 Google 官方警告：對 Google AIO 無效，僅對其他 AI Agent 有用 | STRATEGY |
+| | - 移除 install.sh / install.ps1 / uninstall.sh / uninstall.ps1（以 `/plugin install` 為主）| README |
 | 2026-04-06 | v1.4 YouTube 嵌入 + Google API + Monitor + PDF + Plugin 合規 | 全部 |
 | | - YouTube 影片嵌入：srcdoc lazy-loading、VideoObject Schema、write/rewrite 整合 | video-embeds, schema-stack, write, rewrite |
 | | - Google API 效能檢測：PageSpeed/CrUX、Tier 0/1、config 在 ~/.config/smart-blog-skills/ | google/SKILL, analyze |
