@@ -1,6 +1,6 @@
 {
   "name": "smart-blog-skills",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Anti-hallucination blog engine with 34 sub-skills: write, analyze, rewrite, outline, schema, seo-check, geo, image, audio, repurpose, factcheck, cannibalization, persona, taxonomy, translate, localize, multilingual, locale-audit, audit, flow, notebooklm, google, monitor, strategy, cluster, brief, calendar, llmstxt, brand-mentions, drift, crawlers, customer-research, backlinks. Triple-layer anti-hallucination verification, Humanizer 29-pattern anti-AI review, 100-point quality scoring, E-E-A-T + AI citation optimization. Traditional Chinese first.",
   "author": {
     "name": "rainday",

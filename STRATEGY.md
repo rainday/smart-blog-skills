@@ -573,7 +573,39 @@ analyze 和 monitor compare 支援 `--pdf` flag，使用 `scripts/pdf_report.py`
 
 ---
 
-## 六、變更日誌
+## 六、上游同步狀態
+
+> 詳細版本追蹤見 `my-skills/strategy.md`（上游 commit 記錄）。本節摘要已採用 / 待採用的上游功能。
+
+### 已採用
+
+| 功能 | 來源上游 | 採用版本 |
+|------|---------|---------|
+| 三層反幻覺驗證 [V]/[S]/[F] | smart-blog-skills 原始架構 | v1.0 |
+| research cache `docs/research/{slug}/` | smart-blog-skills | v1.3 |
+| 平行研究 orchestrator | claude-blog 架構參考 | v1.3 |
+| YouTube srcdoc lazy-loading | claude-blog | v1.4 |
+| Google API PageSpeed/CrUX | claude-blog | v1.4 |
+| 5 個 agent YAML frontmatter 標準 | claude-blog | v1.4 |
+| Google AI Optimization Guide 官方立場 | google.developers.com | v1.5 |
+
+### 待採用（來源：claude-blog v1.8.0 → v1.9.1）
+
+> 完整待辦清單見 `my-skills/strategy.md`。
+
+| 功能 | 優先 | 目標版本 |
+|------|------|---------|
+| VULN-039 Indirect Prompt Injection 防護 | 🔴 | v1.6 |
+| Topic Pre-Flight（keyword trap 4 類） | 🟡 | v1.6 |
+| Named-Entity Decomposition | 🟡 | v1.6 |
+| Freshness Floor（30/90 天規則） | 🟡 | v1.6 |
+| Cross-Source Clustering | 🟡 | v1.6 |
+| Research Quality Rubric（5 維度） | 🟡 | v1.6 |
+| Blog Delivery Contract 5-gate | 🟠 | v1.7 |
+
+---
+
+## 七、變更日誌
 
 | 日期 | 變更內容 | 影響範圍 |
 |------|---------|---------|
@@ -622,7 +654,7 @@ analyze 和 monitor compare 支援 `--pdf` flag，使用 `scripts/pdf_report.py`
 
 ---
 
-## 附錄：STRATEGY.md 與 Reference 文件的對應關係
+## 附錄：STRATEGY.md 與 Reference 文件的對應關係（上游：smart-blog-skills / claude-blog）
 
 | 本文件章節 | 衍生的 Reference 文件 |
 |-----------|---------------------|
