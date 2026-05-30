@@ -88,6 +88,21 @@ argument-hint: "<檔案> [--update]"
 - 如缺少 `description`，補充 150-160 字元
 - 如缺少 `coverImage`，標記 `[待補充：封面圖]`
 
+### Phase 4b：品質關卡（BLOCKING）
+
+生成 `smart-blog-skills:blog-reviewer` agent（Agent tool），傳入改寫後的完整文章。
+
+**關卡規則（同 write 流程）：**
+
+| 條件 | 行動 |
+|------|------|
+| 總分 ≥ 90 AND 零 P0 問題 | **通過** → 進入 Phase 5 交付 |
+| 總分 < 90 OR 任何 P0 問題 | **封鎖** → 傳回問題清單，在搜尋預算內進行修正 |
+
+最多重試 **2 次**。2 次後仍未通過 → 交付但標示分數和未解決問題。
+
+---
+
 ### Phase 5：交付
 
 ```markdown
@@ -108,6 +123,11 @@ argument-hint: "<檔案> [--update]"
 
 ### 新增數據
 - [N] 筆新統計（✅ [V] / ⚠️ [S]）
+
+### 品質關卡結果
+- 最終評分：[N]/100（[等級]）
+- P0 問題：[無 / 已修正 N 個]
+- AI Slop Detection：[PASS / PASS after N retries]
 
 ### 需要使用者處理
 - [ ] 確認語氣是否保持一致

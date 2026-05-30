@@ -104,7 +104,24 @@ argument-hint: "<主題>"
 
 **重要：** blog-writer 在寫完初稿後會執行 Humanizer Pass（29 模式掃描 + 反 AI 審稿二次修正），確保輸出不像 AI 寫的。
 
-### Phase 7：交付
+### Phase 7：品質關卡（BLOCKING）
+
+生成 `smart-blog-skills:blog-reviewer` agent（Agent tool），傳入：
+- 完成的文章全文
+- 要求執行完整 100 分評分 + Second-order AI slop detection（參考 `skills/blog/references/ai-slop-detection.md`）
+
+**關卡規則：**
+
+| 條件 | 行動 |
+|------|------|
+| 總分 ≥ 90 AND 零 P0 問題 | **通過** → 進入 Phase 8 交付 |
+| 總分 < 90 OR 任何 P0 問題 | **封鎖** → 傳回問題清單給 blog-writer 修正 |
+
+**重試機制：** 最多重試 **2 次**。每次重試都重新生成 blog-writer 修正 + blog-reviewer 重新評分。2 次後仍未通過 → 繼續交付，但在摘要中清楚標示當前分數和未解決的問題。
+
+---
+
+### Phase 8：交付
 
 輸出完成的文章 + 以下摘要：
 
@@ -148,9 +165,13 @@ argument-hint: "<主題>"
 - 約 [N] 字
 - 預估閱讀時間：[N] 分鐘
 
+### 品質關卡結果
+- 最終評分：[N]/100（[等級]）
+- P0 問題：[無 / 已修正 N 個]
+- AI Slop Detection：[PASS / PASS after N retries]
+
 ### 需要使用者處理
 - [ ] 確認 [S] 標記的數據
 - [ ] 替換 [內部連結] placeholder
 - [ ] 補充 [待補充] 的統計數據
-- [ ] 執行 `/blog analyze` 取得正式評分
 ```
